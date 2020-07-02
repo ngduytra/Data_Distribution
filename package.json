@@ -1,0 +1,48 @@
+{
+  "name": "chat-realtime",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hainguyen-keyti/chat-realtime.git"
+  },
+  "keywords": [
+    "socket"
+  ],
+  "author": "hai nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hainguyen-keyti/chat-realtime/issues"
+  },
+  "homepage": "https://github.com/hainguyen-keyti/chat-realtime#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ethers": "^4.0.38",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.5",
+    "file-type": "^12.4.2",
+    "filereader": "^0.10.3",
+    "form-data": "^3.0.0",
+    "got": "^10.2.1",
+    "helmet": "^3.21.2",
+    "http": "0.0.0",
+    "ipfs": "^0.39.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.7",
+    "node-fetch": "^2.6.0",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "sha256": "^0.2.0",
+    "socket.io": "^2.3.0",
+    "validator": "^11.1.0"
+  }
+}

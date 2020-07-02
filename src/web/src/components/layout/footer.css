@@ -1,0 +1,34 @@
+.wrapper{
+ text-align: center;
+ background-color:#EFEFEF;
+bottom:0; 
+}
+
+
+.footerdiv{
+ width: 1100px;
+ background-color:#EFEFEF;
+ height: 200px;
+ display: inline-block;
+}
+
+.footerp{
+ color:red;
+}
+
+.footercontent {
+ padding-top:40px;
+ /* padding-left: 200px;
+ padding-right: 100px; */
+
+}
+
+.footerlogo {
+ /* margin-left:20px; */
+ height: 60px;
+ width: 60px;
+}
+
+.footermiddlecol {
+ text-align:left;
+}
