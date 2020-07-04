@@ -63,4 +63,58 @@ contract FileStruct{
         uint[] downloadList;
         uint[] investList;
     }
+    
+    struct individualData{
+        address owner;
+        string dataHash;
+        // uint idIdentity;
+        // string name;
+        // uint DoB;
+        // uint male; // 1: male, 2: female, 3: other
+        // string hobbies;
+        // string addressLive;
+        // bool isMerried;
+        // uint phone;
+        bool shared;
+    }
+    
+    struct UnlabelFile{
+        uint idFile;
+        string hashLabeledFile;
+        uint wage;
+        address renter;
+        address implementer;
+        bool locked;
+        bool isLabeled;
+    }
+    
+    struct Feedback{
+        address ownerFeedback;
+        string idMongo;//id in Mongo database to view content
+        uint idFile;
+    }
+    
+    struct Survey{
+        uint idSurvey;
+        address owner;
+        string idMongoose;
+        string contentHash;
+        
+        uint startDate;
+        uint endDate;
+        uint feePerASurvey;
+        uint surveyInDemand; // the number of survey need to take
+        uint participatedPeople;
+
+    }
+    
+    struct huntedFile{
+        uint idhuntFile;
+        uint idhuntedFile;
+        address peopleInNeed;
+        string characteristicHash;
+        address hunter;
+        uint fee;
+        bool isHunted;
+    }
 }

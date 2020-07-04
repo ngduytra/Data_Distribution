@@ -14,11 +14,17 @@ var main_config = {
             ownerSecretKey: '63B3B3D1E9F089A1333066BF4E4832EC48FCBC3720FDECA1930D27AC48965983',
             provider: ethers.getDefaultProvider('kovan'),
 
-            userBehaviorAddress: '0x39700377FdD8f869a70e362c48494082657607DB',
+            userBehaviorAddress: '0x512D127912f9b09174C154eD58Fa8A9e47a6B669',
             userBehaviorABI: abi.userBehaviorABI,
 
-            tokenAddress: '0x69Bd3f2faCD1157F4C0812745883a48841402a95',
+            tokenAddress: '0xADe9FA3ca4A68A9151f6fbF94c2118A9232c3560',
             tokenABI: abi.tokenABI,
+
+            fileStorageAddress: '0x24A20CFB85EaAd9d2A7d496103a387cee29C886C',
+            fileStorageABI: abi.fileStorageABI,
+
+            rankingAddress: '0x0de9179c38Be0327b81DdC347A28f38F01BbEC39',
+            rankingABI: abi.rankingABI,
             
             root_dir: root,
             models_dir: root + '/models',
@@ -28,4 +34,3 @@ var main_config = {
 }
 
 module.exports = Object.assign(main_config, require('./env/'+env) || {});
-
