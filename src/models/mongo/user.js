@@ -44,6 +44,29 @@ var userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    
+    is_verify: {
+        type: Boolean,
+        default: false,
+    },
+
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+
+    validateUser : [String],
+    
+    addressEthereum: {
+        type: String,
+        trim: true,
+    },
+    validateFile : [String],
+    facebook: {
+        type: String,
+        trim: true,
+    },
+    
     password_hash: {
         type: String,
         trim: true,
@@ -56,12 +79,12 @@ var userSchema = mongoose.Schema({
     avatar: {
         type: String,
         trim: true,
-        default: "QmYkHh3Q7sRYWnY4sGo2Q2C3UGPgqdGn8fPcFz4ouLT8KL"
+        default: "QmcvpremCh4FPWGDe28auWBcsS9J1jy7Es5N155e4A6mJi"
     },
     coverPhoto: {
         type: String,
         trim: true,
-        default: "QmVQYPAWpvPKrvhqREYJeTc4FgXL3Q6BpBUvNb4sMWw5uM"
+        default: "Qmep9sYxFwJokmCpjj6ZtjmdRZSV7mYeBNnbxbJcekgnYd"
     },
     birthday: {
         type: Date,
@@ -111,7 +134,10 @@ var userSchema = mongoose.Schema({
     home: {
         type: String,
     },
-
+    isValid: {
+        type: Boolean,
+        default: false
+    },
 });
 
 userSchema.pre('save', next => {

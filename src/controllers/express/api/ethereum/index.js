@@ -20,6 +20,32 @@ ethereumRoutes.post('/setApprove', require('./setApprove'))
 
 ethereumRoutes.post('/cancelContract', require('./cancelContract'))
 
+ethereumRoutes.post('/createSurvey', require('./createSurvey'))
+
+ethereumRoutes.post('/transfer', require('./transfer'))
+
+ethereumRoutes.post('/posthuntfile', require('./posthuntfile'))
+
+ethereumRoutes.post('/findLabeler', require('./findLabeler'))
+
+ethereumRoutes.post('/hunt', require('./hunt'))
+
+ethereumRoutes.post('/label', require('./label'))
+
+ethereumRoutes.post('/approveHuntedFile', require('./approveHuntedFile'))
+
+ethereumRoutes.post('/approveLabeledFile', require('./approveLabeledFile'))
+
+ethereumRoutes.post('/cancelHuntedFile', require('./cancelHuntedFile'))
+
+ethereumRoutes.post('/setPersonalInformation', require('./setPersonalInformation'))
+
+
+ethereumRoutes.get('/getHuntFile', require('./getHuntFile'))
+
+ethereumRoutes.get('/getPersonalInformation', require('./getPersonalInformation'))
+
+ethereumRoutes.get('/getUnlabelFile', require('./getUnlabelFile'))
 
 ethereumRoutes.get('/getUserUpload/:address', require('./getUserUpload'))
 

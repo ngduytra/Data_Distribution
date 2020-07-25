@@ -6,10 +6,12 @@ import {
     Button,
     message,
     Tooltip,
-    Typography
+    Typography,
+    Input
   } from 'antd';
 import 'antd/dist/antd.css';
-import {investISO} from '../../api/userAPI'
+import {connect} from 'react-redux';
+import {investISO, labelFile} from '../../api/userAPI'
 import {showNotificationTransaction, showNotificationLoading, showNotificationFail} from '../../utils/common'
 
 const { Text } = Typography;
@@ -22,22 +24,22 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
         return (
           <Modal
             visible={visible}
-            title="Invest ISO"
+            title="Labeling"
             okText="Submit"
             onCancel={onCancel}
             onOk={onCreate}
           >
             <Form layout="horizontal">
-              <Form.Item label="Offer Amount">
+              <Form.Item label="Labeled File">
                 {getFieldDecorator('investAmount', {
-                  rules: [{ required: true, message: 'Please input amount to invest!'}],
-                  initialValue: 0
+                  rules: [{ required: true, message: 'Please input a string!'}],
+                  initialValue: "",
                 })(
-                  <InputNumber
-                    min={0}
+                  <Input
+                    // min={0}
                     style={{width: 150}}
-                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                    // formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    // parser={value => value.replace(/\$\s?|(,*)/g, '')}
                   />
                 )}
               </Form.Item>
@@ -48,7 +50,7 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
     },
 );
 
-export default class InvestISO extends React.Component {
+class InvestISO extends React.Component {
   state = {
     visible: false,
   };
@@ -62,52 +64,81 @@ export default class InvestISO extends React.Component {
   };
 
   handleCreate = () => {
+    console.log('Test labell function ssjsjdksjdksjdkskdkjsk')
+    console.log(this.props.record)
+    showNotificationLoading("Labeling file ...")
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
       if(err){
-        return message.error('Please fill out all fields');
+        return message.error('Please fill your IPFS hash');
       }
-      this.openUploadNotification(values)
-      form.resetFields();
-      this.setState({ visible: false });
+      let data = {
+        idUnlabelFile: this.props.record.idFile,
+        hashFile: values.investAmount
+      }
+      console.log(data)
+      labelFile(data)
+        .then((txHash) => {
+            showNotificationTransaction(txHash);
+            form.resetFields();
+            this.setState({ visible: false });
+        })
+        .catch((error) => {
+            showNotificationFail("Error find labeler")
+        })
     });
   };
-
-  openUploadNotification = (values) => {
-    showNotificationLoading("Invest Loading ...")
-    let data = {
-      ...values,
-      idFile: this.props.idFile
-    }
-    console.log(data)
-    investISO(data)  
-    .then((txHash) => {
-      showNotificationTransaction(txHash);
-    })
-    .catch((error) => {
-      showNotificationFail(error)
-    })  
-  }
 
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
   
   render() {
+    const {record} = this.props
     return (
       <div>
-        <Tooltip title="Invest this song" placement="leftTop">
-          <Button disabled={this.props.disabled} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
-            <Text>Invest</Text>
-          </Button>
-        </Tooltip>
-        <CollectionCreateForm
-          wrappedComponentRef={this.saveFormRef}
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
-        />
+        {
+          record.isLabeled ?
+          <Tooltip title="this dataset is Labeled" placement="leftTop">
+            <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
+              <Text>Labeled</Text>
+            </Button>
+          </Tooltip>
+          : !record.locked ?
+              <Tooltip title="Label this dataset" placement="leftTop">
+                <Button type="primary" ghost icon="bg-colors" onClick={this.showModal}>
+                  <Text>Label</Text>
+                </Button>
+              </Tooltip>
+              : record.user.addressEthereum === this.props.userReducer.user.addressEthereum ?
+                <Tooltip title="Aprrove this dataset" placement="leftTop">
+                  <Button type="primary" ghost icon="bg-colors" onClick={this.showModal}>
+                    <Text>Aprrove</Text>
+                  </Button>
+                </Tooltip>
+                : <Tooltip title="this dataset is Locked" placement="leftTop">
+                    <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
+                      <Text>Locked</Text>
+                    </Button>
+                  </Tooltip>
+          }
+        
+          <CollectionCreateForm
+            wrappedComponentRef={this.saveFormRef}
+            visible={this.state.visible}
+            onCancel={this.handleCancel}
+            onCreate={this.handleCreate}
+          />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  userReducer: state.userReducer,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  
+})
+export default connect(mapStateToProps, mapDispatchToProps)(InvestISO);

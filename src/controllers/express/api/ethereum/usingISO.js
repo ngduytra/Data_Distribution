@@ -9,13 +9,13 @@ const lib_common = require(config.library_dir+'/common');
 module.exports = async (req, res) => {
     try {
         if(req.body.idFile !== 0) {
-            let missField = lib_common.checkMissParams(res, req.body, ["idFile", "offerPercent", "offerAmount", "maintain"])
+            let missField = lib_common.checkMissParams(res, req.body, ["idFile", "wage"])
             if (missField){
                 console.log("Miss param at Using IOS in server");
                 return
             }
         }
-        const {idFile, offerPercent, offerAmount, maintain } = req.body
+        const {idFile, wage } = req.body
         const userData = await User.findById(req.token_info._id)
         .lean()
         .select('privateKey socketID nickName avatar')
@@ -24,8 +24,8 @@ module.exports = async (req, res) => {
         }
         let privateKey = userData.privateKey;
         let wallet = new ethers.Wallet(privateKey, config.provider);
-        let contractWithSigner = new ethers.Contract(config.userBehaviorAddress, config.userBehaviorABI, wallet)
-        const transaction = await contractWithSigner.usingISO(idFile, offerPercent, offerAmount, maintain)
+        let contractWithSigner = new ethers.Contract(config.didaSystemAddress, config.didaSystemABI, wallet)
+        const transaction = await contractWithSigner.FindLabler(idFile, wage)
         if(!transaction){
             return response_express.exception(res, "Transaction not exist!");
         }

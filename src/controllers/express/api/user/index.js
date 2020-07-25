@@ -16,4 +16,9 @@ userRoutes.post('/postViewMusic', require('./songView'))
 userRoutes.post('/postViewUser', require('./userView'))
 
 
+userRoutes.get('/getHomeSongs', require('./getHomeSongs'))
+
+userRoutes.get('/getHotUsers', require('./getHotUsers'))
+
+
 module.exports = userRoutes;

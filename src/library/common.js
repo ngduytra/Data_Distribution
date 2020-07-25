@@ -123,7 +123,7 @@ exports.getSongByIdMongo = (idMongo, senderID) => {
 		}
 		const promises = [
 			contractWithSignerUserBehavior.getFileById(songMongo.idSolidity),
-			contractWithSignerUserBehavior.getISOId(songMongo.idSolidity),
+			// contractWithSignerUserBehavior.getISOId(songMongo.idSolidity),
 			Follow.countDocuments({followedID: songMongo.userUpload._id}),
 			Follow.exists({userID: senderID})
 		]
@@ -280,6 +280,104 @@ exports.ModifyFileISO = (tx, senderID) => {
 			return returnObj
 		})))
 		// return resolve(result)
+	} catch (error) {
+		return reject(error)
+	}
+	})
+}
+
+exports.ModifyHuntFile = (tx, senderID) => {
+	return new Promise( async (resolve, reject) => {
+	try {
+		return resolve( await Promise.all(tx.map( async record => {
+			let returnObj = {}
+			await User.findOne({addressEthereum: record.peopleInNeed})
+			.then( async user => {
+				const follow = await Follow.countDocuments({followedID: user._id})
+				const isFollowed = await Follow.exists({userID: senderID, followedID: user._id})
+				const data = { 
+					nickName: user.nickName,
+					avatar: user.avatar,
+					addressEthereum: user.addressEthereum,
+					follow,
+					isFollowed
+				}
+				returnObj.user = data
+			})
+			.catch(err=>reject(err))
+			returnObj.idhuntFile = Number(record.idhuntFile)
+			returnObj.huntedFile = await Music.findOne({idSolidity: Number(record.idhuntedFile)})
+			.lean()
+			.select('image')
+			returnObj.idhuntedFile = Number(record.idhuntedFile)
+			returnObj.peopleInNeed = record.peopleInNeed
+			returnObj.characteristicHash = record.characteristicHash
+			returnObj.hunter = await User.findOne({addressEthereum:record.hunter})
+			.lean()
+			.select('avatar nickName addressEthereum')
+			returnObj.fee = Number(record.fee) 
+			returnObj.isHunted = record.isHunted
+			returnObj.isCanceled = record.isCanceled
+
+			return returnObj
+		})))
+	} catch (error) {
+		return reject(error)
+	}
+	})
+}
+
+exports.ModifyUnlabelFile = (tx, senderID) => {
+	return new Promise( async (resolve, reject) => {
+	try {
+		return resolve( await Promise.all(tx.map( async record => {
+			let returnObj = {}
+			await User.findOne({addressEthereum: record.renter})
+			.then( async user => {
+				const follow = await Follow.countDocuments({followedID: user._id})
+				const isFollowed = await Follow.exists({userID: senderID, followedID: user._id})
+				const data = { 
+					nickName: user.nickName,
+					avatar: user.avatar,
+					addressEthereum: user.addressEthereum,
+					follow,
+					isFollowed
+				}
+				returnObj.user = data
+			})
+			.catch(err=>reject(err))
+			returnObj.idFile = Number(record.idFile)
+			returnObj.file = await Music.findOne({idSolidity: Number(record.idFile)})
+			.lean()
+			.select('image name')
+			returnObj.hashLabeledFile = record.hashLabeledFile
+			returnObj.wage = Number(record.wage)
+			returnObj.renter = record.renter
+			returnObj.implementer = record.implementer
+			returnObj.locked = record.locked
+			returnObj.isLabeled = record.isLabeled
+			return returnObj
+		})))
+	} catch (error) {
+		return reject(error)
+	}
+	})
+}
+
+exports.ModifyPersonalData = (tx, senderID) => {
+	return new Promise( async (resolve, reject) => {
+	try {
+		return resolve( await Promise.all(tx.map( async record => {
+			let returnObj = {}
+			returnObj.idFile = Number(record.idFile)
+			returnObj.hashLabeledFile = Number(record.hashLabeledFile)
+			returnObj.wage = Number(record.wage)
+			returnObj.renter = record.renter
+			returnObj.implementer = record.implementer
+			returnObj.locked = Number(record.locked)
+			returnObj.isLabeled = record.isLabeled
+			return returnObj
+		})))
 	} catch (error) {
 		return reject(error)
 	}

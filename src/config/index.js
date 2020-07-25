@@ -11,21 +11,24 @@ var main_config = {
             port: 6969,
 
             secret: 'db591d26716a5fbccf9e1068604d2a4e33e5d77e74c65949e5a70a60bcf59c06', //JWT
-            ownerSecretKey: '63B3B3D1E9F089A1333066BF4E4832EC48FCBC3720FDECA1930D27AC48965983',
+            ownerSecretKey: '63b3b3d1e9f089a1333066bf4e4832ec48fcbc3720fdeca1930d27ac48965983',
             provider: ethers.getDefaultProvider('kovan'),
 
-            userBehaviorAddress: '0x512D127912f9b09174C154eD58Fa8A9e47a6B669',
+            userBehaviorAddress: '0x40BED5d1b7d763d7Ab19f2ce67375b8115a19729',
             userBehaviorABI: abi.userBehaviorABI,
 
-            tokenAddress: '0xADe9FA3ca4A68A9151f6fbF94c2118A9232c3560',
+            tokenAddress: '0x1c5278199Cd07286060D470bA1CA91fCD14006CB',
             tokenABI: abi.tokenABI,
 
-            fileStorageAddress: '0x24A20CFB85EaAd9d2A7d496103a387cee29C886C',
+            fileStorageAddress: '0x84bABeB0D938BCDCe3f3975a85359d0F0C8c27ff',
             fileStorageABI: abi.fileStorageABI,
 
-            rankingAddress: '0x0de9179c38Be0327b81DdC347A28f38F01BbEC39',
+            rankingAddress: '0x596C44621880C5cC7b47f401B19dB3Cac461D487',
             rankingABI: abi.rankingABI,
-            
+
+            didaSystemAddress: '0x2a8C9D852A9bc81C8829BE25218d03826020334B',
+            didaSystemABI: abi.didaSystemABI,
+
             root_dir: root,
             models_dir: root + '/models',
             controllers_dir: root + '/controllers',

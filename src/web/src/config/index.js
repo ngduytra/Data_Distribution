@@ -9,168 +9,8 @@ const config = {
     url:"http://localhost:6969",
 
     provider: ethers.getDefaultProvider('kovan'),
-    tokenAddress: '0x84C470e05128A2d1FfFF6132801182Aa4CeD9F89',
+    tokenAddress: '0x1c5278199Cd07286060D470bA1CA91fCD14006CB',
     tokenABI: [
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "approve",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "name": "subtractedValue",
-                    "type": "uint256"
-                }
-            ],
-            "name": "decreaseAllowance",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "name": "addedValue",
-                    "type": "uint256"
-                }
-            ],
-            "name": "increaseAllowance",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "UserBehaviorContract",
-                    "type": "address"
-                }
-            ],
-            "name": "setOnlyUserBehaviorContract",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transfer",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transferFrom",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "TransferFromTo",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
         {
             "inputs": [],
             "payable": false,
@@ -182,11 +22,38 @@ const config = {
             "inputs": [
                 {
                     "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Approval",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
                     "name": "previousOwner",
                     "type": "address"
                 },
                 {
                     "indexed": true,
+                    "internalType": "address",
                     "name": "newOwner",
                     "type": "address"
                 }
@@ -199,16 +66,19 @@ const config = {
             "inputs": [
                 {
                     "indexed": true,
+                    "internalType": "address",
                     "name": "from",
                     "type": "address"
                 },
                 {
                     "indexed": true,
+                    "internalType": "address",
                     "name": "to",
                     "type": "address"
                 },
                 {
                     "indexed": false,
+                    "internalType": "uint256",
                     "name": "value",
                     "type": "uint256"
                 }
@@ -217,35 +87,46 @@ const config = {
             "type": "event"
         },
         {
-            "anonymous": false,
+            "constant": false,
             "inputs": [
                 {
-                    "indexed": true,
-                    "name": "owner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
+                    "internalType": "address",
                     "name": "spender",
                     "type": "address"
                 },
                 {
-                    "indexed": false,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
                     "name": "value",
                     "type": "uint256"
                 }
             ],
-            "name": "Approval",
-            "type": "event"
+            "name": "TransferFromTo",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
         },
         {
             "constant": true,
             "inputs": [
                 {
+                    "internalType": "address",
                     "name": "owner",
                     "type": "address"
                 },
                 {
+                    "internalType": "address",
                     "name": "spender",
                     "type": "address"
                 }
@@ -253,6 +134,7 @@ const config = {
             "name": "allowance",
             "outputs": [
                 {
+                    "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
                 }
@@ -262,9 +144,36 @@ const config = {
             "type": "function"
         },
         {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "constant": true,
             "inputs": [
                 {
+                    "internalType": "address",
                     "name": "owner",
                     "type": "address"
                 }
@@ -272,6 +181,7 @@ const config = {
             "name": "balanceOf",
             "outputs": [
                 {
+                    "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
                 }
@@ -286,6 +196,7 @@ const config = {
             "name": "decimals",
             "outputs": [
                 {
+                    "internalType": "uint8",
                     "name": "",
                     "type": "uint8"
                 }
@@ -295,11 +206,64 @@ const config = {
             "type": "function"
         },
         {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "subtractedValue",
+                    "type": "uint256"
+                }
+            ],
+            "name": "decreaseAllowance",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "addedValue",
+                    "type": "uint256"
+                }
+            ],
+            "name": "increaseAllowance",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "constant": true,
             "inputs": [],
             "name": "name",
             "outputs": [
                 {
+                    "internalType": "string",
                     "name": "",
                     "type": "string"
                 }
@@ -309,11 +273,32 @@ const config = {
             "type": "function"
         },
         {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "UserBehaviorContract",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "DidaSystem",
+                    "type": "address"
+                }
+            ],
+            "name": "setOnlyUserBehaviorContract",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "constant": true,
             "inputs": [],
             "name": "symbol",
             "outputs": [
                 {
+                    "internalType": "string",
                     "name": "",
                     "type": "string"
                 }
@@ -328,12 +313,70 @@ const config = {
             "name": "totalSupply",
             "outputs": [
                 {
+                    "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
                 }
             ],
             "payable": false,
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transfer",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transferFrom",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
             "type": "function"
         }
     ],

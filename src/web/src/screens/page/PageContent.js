@@ -9,7 +9,7 @@ import {
 import 'antd/dist/antd.css';
 import './index.css'
 import DataTable from './DataTable'
-import ISOAddress from '../../components/ISOAddress'
+import MartketPlaceFindData from '../../screens/martketplaceFindData/MartketPlaceFindData'
 import ComponentLoading from '../../components/loading'
 import Component404 from '../../components/404'
 import {getUserPage, set_is_follow_page} from '../../actions/page'
@@ -33,7 +33,9 @@ class PageContent extends Component {
     postViewUser({userName: this.props.userName})
   }
   render() {
-    if (this.props.pageReducer.errorPage) return (<Component404 history={this.props.history} subTitle="Page not found. Please try another link!"></Component404>)
+    
+    if (this.props.songReducer.error) return (<Component404 history={this.props.history} subTitle="Page not found or you are not valid user"></Component404>)
+    if (this.props.pageReducer.errorPage) return (<Component404 history={this.props.history} subTitle="Page not found or you are not valid user"></Component404>)
     if (!this.props.pageReducer.userInfoData) return (<ComponentLoading/>)
     const {follow, phone, facebook, youtube, home, coverPhoto , avatar, nickName, _id, isFollowed} = this.props.pageReducer.userInfoData
     const operations = <FollowButton ownerSongID={_id} isFollowed={isFollowed} isPage={true}/> 
@@ -55,7 +57,7 @@ class PageContent extends Component {
             <Col span={6}>
               <div className="logo-name">
                 <div style={{padding: '15px'}}>
-                  <Avatar style={{  boxShadow: '0 0 60px 2px #f29f99'}} size={160} src={window.$linkIPFS + avatar} alt="Avatar photo"/>
+                  <Avatar style={{  boxShadow: '0 0 60px 2px #4C70C6'}} size={160} src={window.$linkIPFS + avatar} alt="Avatar photo"/>
                 </div>
                 <div>
                   <Title level={4}>{nickName}</Title>
@@ -89,17 +91,17 @@ class PageContent extends Component {
             </Col>
               <Col span={18}>
                 <Tabs tabBarExtraContent={operations}>
-                  <TabPane tab="Bài hát đã đăng" key="1">
+                  <TabPane tab="Uploaded Dataset" key="1">
                     <DataTable tableUpload={true} pageName={nickName}/>
                   </TabPane>
                   {/* <TabPane tab="ISO" key="2">
                       <ISOAddress/>
                   </TabPane> */}
-                  <TabPane tab="Bài hát đã mua" key="3">
+                  <TabPane tab="Bought Dataset" key="3">
                     <DataTable pageName={nickName}/>
                   </TabPane>
-                  <TabPane tab="Sự kiện" key="4">
-                    Chưa có sự kiện nào được diễn ra
+                  <TabPane tab="Data Request" key="4">
+                    <MartketPlaceFindData isPage={true}/>
                   </TabPane>
                 </Tabs>
               </Col>
@@ -111,7 +113,8 @@ class PageContent extends Component {
 
 const mapStateToProps = (state) => ({
   pageReducer: state.pageReducer,
-  userReducer: state.userReducer
+  userReducer: state.userReducer,
+  songReducer: state.songReducer,
 })
 
 const mapDispatchToProps = (dispatch) => ({

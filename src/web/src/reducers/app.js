@@ -10,6 +10,7 @@ const initialState = {
     errorGetHomeData: null,
 
     hotUserData: null,
+    huntData: null,
     
     error: null,
 }
@@ -20,6 +21,11 @@ export const appReducer = ( state = initialState, action) => {
         return {
             ...state,
             hotUserData: action.hotUserData
+        }
+    case 'GET_HOT_HUNT_SUCCESSFUL':
+        return{
+            ...state,
+            huntData: action.hotHuntData
         }
     case 'GET_HOME_DATA_START':
         return {

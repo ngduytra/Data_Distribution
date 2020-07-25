@@ -11,11 +11,10 @@ userActionRoutes.get('/getSongByID', require('./getSongByID'))
 
 userActionRoutes.post('/follow', require('./follow'))
 
-userActionRoutes.post('/postLyric', require('./postLyric'))
+userActionRoutes.post('/postDescription', require('./postDescription'))
 
-userActionRoutes.get('/getHomeSongs', require('./getHomeSongs'))
+userActionRoutes.post('/setPersonalData', require('./setPersonalData'))
 
-userActionRoutes.get('/getHotUsers', require('./getHotUsers'))
 
 userActionRoutes.get('/getSongSameSinger', require('./getSongSameSinger'))
 
@@ -29,6 +28,8 @@ userActionRoutes.get('/getUserContract', require('./getUserContract'))
 
 userActionRoutes.get('/getNotification', require('./getNotification'))
 
+userActionRoutes.get('/getUserToValidate', require('./getUserToValidate'))
+
 
 
 
@@ -37,6 +38,10 @@ userActionRoutes.post('/createTemplateContract', require('./createTemplateContra
 userActionRoutes.post('/createContract', require('./createContract'))
 
 userActionRoutes.post('/setApprovedContract', require('./setApprovedContract'))
+
+userActionRoutes.post('/validFile', require('./validFile'))
+
+userActionRoutes.post('/validUser', require('./validUser'))
 
 
 

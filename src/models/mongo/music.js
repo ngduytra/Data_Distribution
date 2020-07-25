@@ -13,7 +13,7 @@ var MusicSchema = mongoose.Schema({
     image: {
         type: String,
         trim: true,
-        default: "QmYkHh3Q7sRYWnY4sGo2Q2C3UGPgqdGn8fPcFz4ouLT8KL"
+        default: "QmVN6cwUrWyZ94QgUsNkV1qWM9zaXEhQ6Hr9wkoLbMEWA6"
     },
     view: {
         type: Number,
@@ -22,9 +22,9 @@ var MusicSchema = mongoose.Schema({
     name: {
         type: String,
     },
-    lyric: {
+    description: {
         type: String,
-        default: "This song not update lyric yet.",
+        default: "This song not update description yet.",
     },
     artist: {
         type: String,
@@ -46,6 +46,14 @@ var MusicSchema = mongoose.Schema({
     isVerifyCopyright: {
         type: Boolean,
         default: null,
+    },
+    isLabelFile: {
+        type: Boolean,
+        default: false
+    },
+    isValid:{
+        type: Boolean,
+        default: false
     }
 });
 

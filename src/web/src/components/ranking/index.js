@@ -23,7 +23,7 @@ class Ranking extends React.Component {
     const {rankingdata} = this.props.appReducer
     return (
       <div style={{width: '100%'}}>
-        <Title level={4} type="secondary"> BẢNG XẾP HẠNG TUẦN </Title>
+        <Title level={4} type="secondary"> THE MOST DOWNLOADED DATASET </Title>
         {rankingdata === null ? 
         (
           <List

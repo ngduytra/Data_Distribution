@@ -42,7 +42,7 @@
           transform-style: preserve-3d;
   border-radius: 100%;
   box-sizing: border-box;
-  box-shadow: 0 0 60px crimson, inset 0 0 60px crimson;
+  box-shadow: 0 0 60px #74D0BE, inset 0 0 60px #74D0BE;
 }
 .plane.main .circle::before, .plane.main .circle::after {
   content: "";
@@ -56,9 +56,9 @@
   width: 10%;
   height: 10%;
   border-radius: 100%;
-  background: rgb(240, 49, 144);
+  background: #00D800;
   box-sizing: border-box;
-  box-shadow: 0 0 60px 2px crimson;
+  box-shadow: 0 0 60px 2px #74D0BE;
 }
 .plane.main .circle::before {
   -webkit-transform: translateZ(-90px);

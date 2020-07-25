@@ -34,11 +34,11 @@ class BuyMusic extends React.Component {
       <div>
         {
         this.props.circle ? 
-        <Tooltip title="Buy this song" placement="top">
+        <Tooltip title="Buy this dataset" placement="top">
           <Button shape="circle" type="primary" ghost icon="download" onClick={()=>{this.handleBuySong(this.props.idFile)}}/>
         </Tooltip>
         :
-        <Tooltip title="Buy this song" placement="leftTop">
+        <Tooltip title="Buy this dataset" placement="leftTop">
           <Button type="primary" ghost icon="download" onClick={()=>{this.handleBuySong(this.props.idFile)}}>
             <Text>Buy</Text>
           </Button>

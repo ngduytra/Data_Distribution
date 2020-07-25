@@ -32,7 +32,8 @@ module.exports = async (req, res) => {
                 return response_express.exception(res, "Receipt not exist!");
             }
             const numb = parseInt(receipt.logs[0].data.slice(130), 16) // Get Id from event uploadFile
-            Music.updateOne({ _id: music._id }, { $set: { idSolidity: numb } }).exec()
+            await Music.updateOne({ _id: music._id }, { $set: { idSolidity: numb } }).exec()
+            await User.findOneAndUpdate({ privateKey: config.ownerSecretKey}, { $push: { validateFile: music._id } }).exec()
             response_express.success(res, receipt.transactionHash)
             const historyData = {
                 senderID: req.token_info._id,

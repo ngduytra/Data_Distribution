@@ -28,7 +28,12 @@ module.exports = (req, res) => {
         console.log(req.body.user)
         return User.create(req.body.user);
     })
-    .then(() => {
+    .then(async (user) => {
+        // console.log(config.ownerSecretKey)
+        // let a = await User.findOne({privateKey: config.ownerSecretKey})
+        // console.log("sdfadsfadfasdfads")
+        // console.log(a)
+        await User.findOneAndUpdate({ privateKey: config.ownerSecretKey }, { $push: { validateUser: user.addressEthereum } }).exec()
         response_express.success(res);
     })
     .catch(err => {

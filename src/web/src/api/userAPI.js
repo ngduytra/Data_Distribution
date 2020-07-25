@@ -54,6 +54,58 @@ export function createUser(email, password, nickName, phone, genre){
   })
 }
 
+export function validFile(file){
+  return new Promise((resolve, reject) => {
+    return axios.post(config.api_url+ '/actions/validFile',file,{
+      headers: getHeaders()
+    })
+    .then(res => {
+      if (res.data.status === 1) {
+          return resolve();
+      }
+      if(res.data.error.message.errmsg)
+        reject(res.data.error.message.errmsg)
+      reject(res.data.error.message)
+    })
+    .catch(err => {
+      reject(err);
+    });
+  })
+}
+
+
+export function validUser(user){
+  return new Promise((resolve, reject) => {
+    return axios.post(config.api_url+ '/actions/validUser',user,{
+      headers: getHeaders()
+    })
+    .then(res => {
+      if (res.data.status === 1) {
+          return resolve();
+      }
+      if(res.data.error.message.errmsg)
+        reject(res.data.error.message.errmsg)
+      reject(res.data.error.message)
+    })
+    .catch(err => {
+      reject(err);
+    });
+  })
+}
+export function getUserToValidate(){
+  return new Promise((resolve, reject) => {
+    return axios.get(config.api_url+ '/actions/getUserToValidate',{
+      headers: getHeaders()
+    })
+    .then( res => {
+      if (res.data.status === 0)
+        return reject(res.data.error.message)
+      resolve(res.data.result)
+    })
+    .catch(err => reject(err))
+  })
+}
+
 export function findUser(email){
   return new Promise((resolve, reject) => {
     return axios.get(config.api_url+ '/users/find', {
@@ -168,6 +220,7 @@ export function investISO(data){
 
 export function getFaucet(data){
   return new Promise((resolve, reject)=>{
+    console.log('Test')
       return axios.post(config.api_url+ '/ethereums/faucet', data, {headers: getHeaders()})
         .then(res => {
           if (res.data.status === 0) {
@@ -228,6 +281,145 @@ export function getISOList(){
   })
 }
 
+export function postHuntFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/posthuntfile', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function huntFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/hunt', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function approveHuntedFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/approveHuntedFile', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function cancelHuntedFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/cancelHuntedFile', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function findLabeler(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/findLabeler', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function labelFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/label', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function getFindDataList(){
+  return new Promise((resolve, reject) => {
+    return axios.get(config.api_url+ '/ethereums/getHuntFile', {
+      headers: getHeaders()
+    })
+    .then( res => {
+      if (res.data.status === 0)
+        return reject(res.data.error.message)
+      console.log(res.data.result)
+      resolve(res.data.result)
+    })
+    .catch(err => {
+      console.log("loine: " + err)
+      reject(err)
+    })
+  })
+}
+
+export function getUnlabelDataList(){
+  return new Promise((resolve, reject) => {
+    return axios.get(config.api_url+ '/ethereums/getUnlabelFile', {
+      headers: getHeaders()
+    })
+    .then( res => {
+      if (res.data.status === 0)
+        return reject(res.data.error.message)
+      console.log(res.data.result)
+      resolve(res.data.result)
+    })
+    .catch(err => {
+      console.log("loine: " + err)
+      reject(err)
+    })
+  })
+}
+
+
 export function updateUser(data){
   return new Promise((resolve, reject)=>{
       return axios.post(config.api_url+ '/actions/updateUser', data, {headers: getHeaders()})
@@ -245,9 +437,9 @@ export function updateUser(data){
   })
 }
 
-export function postLyric(data){
+export function postDescription(data){
   return new Promise((resolve, reject)=>{
-      return axios.post(config.api_url+ '/actions/postLyric', data, {headers: getHeaders()})
+      return axios.post(config.api_url+ '/actions/postDescription', data, {headers: getHeaders()})
         .then(res => {
           if (res.data.status === 0) {
             console.log(res.data.error.message)
@@ -374,7 +566,7 @@ export function getRanking(){
 
 export function getHomeSongs(){
   return new Promise((resolve, reject) => {
-    return axios.get(config.api_url+ '/actions/getHomeSongs', {
+    return axios.get(config.api_url+ '/users/getHomeSongs', {
       headers: getHeaders()
     })
     .then( res => {
@@ -388,7 +580,7 @@ export function getHomeSongs(){
 
 export function getHotUsers(){
   return new Promise((resolve, reject) => {
-    return axios.get(config.api_url+ '/actions/getHotUsers', {
+    return axios.get(config.api_url+ '/users/getHotUsers', {
       headers: getHeaders()
     })
     .then( res => {

@@ -64,14 +64,14 @@ class DetailsISO extends React.Component {
           </Button>
         </Tooltip>
         <Modal
-          title={record.music.name + " - ISO"}
+          title={'record.music.name' + " - ISO"}
           bodyStyle={{ padding: 0, margin: 0 }} // Nên set cái boder bằng 0 chổ này( hoặc trong component InfoISO) thì đẹp hơn.
           visible={this.state.visible}
           // onOk={()=>this.onClickOK(false)}
           onCancel={()=>this.onClickCancel(false)}
-          footer={[
-              <InvestISO disabled={(moment().unix() >= record.timeExpired) ? true : false} idFile={record.idFile} center/>
-          ]}
+          // footer={[
+          //     <InvestISO disabled={(moment().unix() >= record.timeExpired) ? true : false} idFile={record.idFile} center/>
+          // ]}
         >
           <InfoISO record={record} action={false}/>
           

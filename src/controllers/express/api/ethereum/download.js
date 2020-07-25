@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
         .select('userUpload name image')
         .populate('userUpload', ['socketID', 'nickName'])
         if(!songData || songData.userUpload._id.toString() === req.token_info._id){
-            return response_express.exception(res, "You can not use copyright register this song or the song not exist!");
+            return response_express.exception(res, "You can not use copyright register this dataset or the dataset not exist!");
         }
         let wallet = new ethers.Wallet(userData.privateKey, config.provider);
         let contractWithSigner = new ethers.Contract(config.userBehaviorAddress, config.userBehaviorABI, wallet)

@@ -12,21 +12,21 @@ export default class Footer extends React.Component {
 					<div className='footercontent'>
 					<Row gutter={8}>
 						<Col className="gutter-row" span={8}>
-							<img src={logo} className="footerlogo" alt='Justice music'/>
-							<h2>Justice Music</h2>
+							<img src={logo} className="footerlogo" alt='Data Distribution'/>
+							<h2>Data Distribution</h2>
 						</Col>
 						<Col className="gutter-row" span={8}>
 							<div className="footermiddlecol">
-							<p> <Icon type="environment" /> Silicon Valley, United States
+							<p> <Icon type="environment" /> Divergent Valley, Viet Nam
 							</p>
-							<p> <Icon type="mobile" /> 0372598218</p>
-							<p> © 2019 Justice Music All Rights Reserverd</p>
+							<p> <Icon type="mobile" /> 0337597788</p>
+							<p> © 2020 Data Distribution All Rights Reserverd</p>
 							</div>
 						</Col>
 						<Col className="gutter-row" span={8}>
 							<h2> About The Company</h2>
 							<p></p>
-							<p> We offer many solutions to protect your music copyright.  </p>
+							<p> We offer many solutions to protect and monetize from your data.  </p>
 						</Col>
 					</Row>
 					</div>

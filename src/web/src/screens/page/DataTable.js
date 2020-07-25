@@ -41,8 +41,8 @@ class DataTable extends React.Component {
         // sorter: true,
         render: music =>
         <Meta 
-          avatar={<Avatar shape='square' size={50} src={window.$linkIPFS + music.image} alt="Music photo" onClick={()=> this.props.history.push(`/song/${music._id}`)}/>} 
-          title={<Button  style={{textAlign: 'left', padding: 0, fontSize: 14, height: 20}}  type="link" onClick={() => {this.props.set_music_selected(music)}}>{music.name}</Button>} 
+          avatar={<Avatar shape='square' size={50} src={window.$linkIPFS + music.image} alt="Dataset photo" onClick={()=> this.props.history.push(`/song/${music._id}`)}/>} 
+          title={<Button  style={{textAlign: 'left', padding: 0, fontSize: 14, height: 20}}  type="link" onClick={()=> this.props.history.push(`/song/${music._id}`)}>{music.name}</Button>} 
           description={<Text type="secondary">{music.artist}</Text>} 
         />
       },
@@ -62,7 +62,7 @@ class DataTable extends React.Component {
         dataIndex: 'music.view',
         render: view => (
           <div>
-            <Icon type="customer-service" style={{marginRight: '10px', color: '#1da1f2',  fontSize: 17}} />
+            <Icon type="eye" style={{marginRight: '10px', color: '#1da1f2',  fontSize: 17}} />
             <Text type="secondary">{formatThousands(view)}</Text>
           </div>
         )
@@ -72,7 +72,7 @@ class DataTable extends React.Component {
         render: record => (
             <div>
               <Icon type="pay-circle" style={{marginRight: '10px', color: '#1da1f2',  fontSize: 17}} />
-              <Text type="secondary">{formatThousands(record.price)} HAK</Text>
+              <Text type="secondary">{formatThousands(record.price)} DIV</Text>
             </div>
         )
       },
@@ -102,7 +102,7 @@ class DataTable extends React.Component {
       <Table
         size="middle"
         showHeader={false}
-        title={()=><Title level={4} style={{color: '#2daaed'}}>{ this.props.tableUpload ? `BÀI HÁT CỦA "${this.props.pageName}"` : `BÀI HÁT MÀ "${this.props.pageName}" ĐÃ MUA`}</Title>}
+        title={()=><Title level={4} style={{color: '#2daaed'}}>{ this.props.tableUpload ? `Bộ dữ liệu của "${this.props.pageName}"` : `Bộ dữ liệu mà "${this.props.pageName}" đã mua`}</Title>}
         columns={columns}
         rowKey={record => record.idFile}
         dataSource={this.props.tableUpload ? this.props.pageReducer.uploadData : this.props.pageReducer.downloadData}

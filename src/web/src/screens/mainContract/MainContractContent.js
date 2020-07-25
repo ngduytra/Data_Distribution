@@ -80,7 +80,7 @@ class extends React.Component {
                       maxLength={25}
                 />
               )}
-            <span className="ant-form-text"> HAK</span>
+            <span className="ant-form-text"> DIV</span>
             <span className="ant-form-text">➜   {this.state.contractMoney} USD</span>
           </Form.Item>
 
@@ -98,7 +98,7 @@ class extends React.Component {
                   maxLength={25}
                 />
               )}
-            <span className="ant-form-text"> HAK</span>
+            <span className="ant-form-text"> DIV</span>
             <span className="ant-form-text">➜   {this.state.OwnerCA} USD</span>
           </Form.Item>
           
@@ -116,7 +116,7 @@ class extends React.Component {
                   maxLength={25}
                 />
               )}
-            <span className="ant-form-text"> HAK</span>
+            <span className="ant-form-text"> DIV</span>
             <span className="ant-form-text">➜   {this.state.SignerCA} USD</span>
           </Form.Item>
 

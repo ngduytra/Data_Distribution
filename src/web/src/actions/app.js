@@ -1,7 +1,8 @@
 import { 
     getRanking as getRankingAPI, 
     getHomeSongs as getHomeSongsAPI,
-    getHotUsers as getHotUsersAPI
+    getHotUsers as getHotUsersAPI,
+    getFindDataList as getFindDataAPI
 } from '../api/userAPI'
 
 
@@ -16,10 +17,39 @@ export function getHotUsers(){
         });
     }
 }
+
+export function getFindDataList(){
+    return (dispatch) => {
+        getFindDataAPI()
+        .then(async (data) => {
+                await Promise.all( data.map(element => {
+                  return fetch(`https://ipfs.jumu.tk/${element.characteristicHash}`)
+                  .then(response => response.json())
+                  .then((jsonData) => {
+                    element.IPFS = jsonData
+                    return element
+                  })
+                }))
+                let random = data.sort(() => 0.5 - Math.random()).slice(0,3)
+                dispatch(get_hot_hunt_successful(random))
+              })
+        .catch((err) => {
+            console.log("Error at get getHuntUsersAPI: " + err)
+        });
+    }
+}
+
 export function get_hot_user_successful(hotUserData){
     return {
         type: 'GET_HOT_USER_SUCCESSFUL',
         hotUserData,
+    }
+}
+
+export function get_hot_hunt_successful(hotHuntData){
+    return {
+        type: 'GET_HOT_HUNT_SUCCESSFUL',
+        hotHuntData,
     }
 }
 

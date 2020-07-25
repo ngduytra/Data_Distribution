@@ -9,7 +9,7 @@ import {
     Typography
   } from 'antd';
 import 'antd/dist/antd.css';
-import {usingISO} from '../../api/userAPI'
+import {findLabeler} from '../../api/userAPI'
 import {showNotificationTransaction, showNotificationLoading, showNotificationFail} from '../../utils/common'
 import config from '../../config'
 import {getISOAddress} from '../../actions/page'
@@ -20,25 +20,21 @@ const { Text } = Typography;
 const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
   // eslint-disable-next-line
   class extends React.Component {
-    state = {
-      date: 86400,
-    };
       render() {
         const { visible, onCancel, onCreate, form } = this.props;
         const { getFieldDecorator } = form;
         return (
           <Modal
             visible={visible}
-            title="Using ISO"
-            okText="Submit"
+            title="Find Labeler"
+            okText="Find"
             onCancel={onCancel}
             onOk={onCreate}
           >
             <Form layout="horizontal">
-
-              <Form.Item label="Offer Percent">
-                {getFieldDecorator('offerPercent', {
-                  rules: [{ required: true, message: 'Please input cost of this song!'}],
+            <Form.Item label="Wage">
+                {getFieldDecorator('wage', {
+                  rules: [{ required: true, message: 'Please input fee of this assignment!'}],
                   initialValue: 5000
                 })(
                   <InputNumber 
@@ -46,43 +42,10 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
                     max={50000}
                     step={1}
                     style={{width: 150}}
-                    formatter={value => `${value}%`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={value => value.replace('%', '').replace(/\$\s?|(,*)/g, '')}/>
                 )}
               </Form.Item>
-
-              <Form.Item label="Offer Amount">
-                {getFieldDecorator('offerAmount', {
-                  rules: [{ required: true, message: 'Please input cost of this song!'}],
-                  initialValue: 1000000
-                })(
-                  <InputNumber
-                    min={0}
-                    style={{width: 150}}
-                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                  />
-                )}
-              </Form.Item>
-
-              <Form.Item label="Offer Maintain">
-                {getFieldDecorator('maintain', {
-                  rules: [{ required: true, message: 'Please input cost of this song!'}],
-                  initialValue: this.state.date,
-                  onChange: (e) => {this.setState({date: e})}
-                  })(
-                    <InputNumber
-                      min={0}
-                      max={2592000} //30 days
-                      style={{width: 150}}
-                      formatter={value => `🕗 ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      parser={value => value.replace(/🕗\s?|(,*)/g, '')}
-                    />
-                  )}
-                {/* <span className="ant-form-text"> second</span>
-                <span className="ant-form-text">➜ {moment(moment.duration(this.state.date, 'seconds')).format("YYYY-MM-DD hh:mm:ss")}</span> */}
-              </Form.Item>
-              
             </Form>
           </Modal>
         );
@@ -104,36 +67,48 @@ class UsingISO extends React.Component {
   };
 
   handleCreate = () => {
+    showNotificationLoading("Posting a request to find labeler ...")
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
       if(err){
-        return message.error('Please fill out all fields');
+        return message.error('Please fill out a wage');
       }
-      this.openUploadNotification(values)
-      form.resetFields();
-      this.setState({ visible: false });
-    });
+      console.log(values)
+      let data = {
+        idFile: this.props.idFile,
+        wage: values.wage
+      }
+      console.log(data)
+      findLabeler(data)
+        .then((txHash) => {
+            showNotificationTransaction(txHash);
+            form.resetFields();
+        })
+        .catch((error) => {
+            showNotificationFail("Error find labeler")
+        })
+      })
   };
 
-  openUploadNotification = (values) => {
-    showNotificationLoading("Uploading ...")
-    let data = {
-      ...values,
-      idFile: this.props.idFile
-    }
-    console.log(data)
-    usingISO(data)  
-    .then((txHash) => {
-      showNotificationTransaction(txHash);
-      config.provider.waitForTransaction(txHash)
-      .then(()=>{
-        this.props.getISOAddress(this.props.userReducer.user.addressEthereum)
-      })
-    })
-    .catch((error) => {
-      showNotificationFail(error)
-    })  
-  }
+  // openUploadNotification = (values) => {
+  //   showNotificationLoading("Uploading ...")
+  //   let data = {
+  //     ...values,
+  //     idFile: this.props.idFile
+  //   }
+  //   console.log(data)
+  //   usingISO(data)  
+  //   .then((txHash) => {
+  //     showNotificationTransaction(txHash);
+  //     config.provider.waitForTransaction(txHash)
+  //     .then(()=>{
+  //       this.props.getISOAddress(this.props.userReducer.user.addressEthereum)
+  //     })
+  //   })
+  //   .catch((error) => {
+  //     showNotificationFail(error)
+  //   })  
+  // }
 
   saveFormRef = formRef => {
     this.formRef = formRef;
@@ -143,13 +118,13 @@ class UsingISO extends React.Component {
     return (
       <div>
         {this.props.circle ? 
-          <Tooltip title="Using ISO this song" placement="top">
+          <Tooltip title="Find labeler for this dataset" placement="top">
             <Button disabled={this.props.disabled} shape="circle" type="danger" ghost icon="usergroup-add" onClick={this.showModal}/>
           </Tooltip>
           :
-          <Tooltip title="Using ISO this song" placement="leftTop">
+          <Tooltip title="Find labeler this dataset" placement="leftTop">
             <Button disabled={this.props.disabled} type="danger" ghost icon="usergroup-add" onClick={this.showModal}>
-              <Text>Using ISO</Text>
+              <Text>Find Labler</Text>
             </Button>
           </Tooltip>
       }

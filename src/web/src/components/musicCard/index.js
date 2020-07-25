@@ -64,7 +64,7 @@ class MusicCard extends React.Component {
         >
         <Meta 
           title={
-            <Tooltip style={{display: 'flex', flexDirection: 'column'}} title={songInfo.name} placement="top" onClick={() =>{this.props.set_music_selected(songInfo)}} >
+            <Tooltip style={{display: 'flex', flexDirection: 'column'}} title={songInfo.name} placement="top" onClick={() => this.props.history.push(`/song/${ songInfo._id}`)} >
             <div style={{display: 'flex', flexDirection: 'column'}}>
               <Button style={{textAlign: 'left', padding: 0, fontSize: 13, height: 20,  width: '100%'}}  type="link" >{songInfo.name}</Button>
               <Text style={{fontSize: 13}} type="secondary">{songInfo.artist}</Text>
