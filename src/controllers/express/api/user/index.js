@@ -15,10 +15,13 @@ userRoutes.post('/postViewMusic', require('./songView'))
 
 userRoutes.post('/postViewUser', require('./userView'))
 
+userRoutes.post('/getHash', require('./getHash'))
+
 
 userRoutes.get('/getHomeSongs', require('./getHomeSongs'))
 
 userRoutes.get('/getHotUsers', require('./getHotUsers'))
 
+userRoutes.get('/getRanking', require('./getRanking'))
 
 module.exports = userRoutes;

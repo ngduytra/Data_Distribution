@@ -3173,6 +3173,45 @@ exports.rankingABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_fileStorage",
+				"type": "address"
+			}
+		],
+		"name": "setFileStorage",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -3253,45 +3292,6 @@ exports.rankingABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_fileStorage",
-				"type": "address"
-			}
-		],
-		"name": "setFileStorage",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
@@ -3409,8 +3409,18 @@ exports.didaSystemABI = [
 			},
 			{
 				"internalType": "uint256",
-				"name": "_wage",
+				"name": "_partAmount",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_totalWage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_subHash",
+				"type": "string[]"
 			}
 		],
 		"name": "FindLabler",
@@ -3461,16 +3471,15 @@ exports.didaSystemABI = [
 				"internalType": "uint256",
 				"name": "_idUnlabelFile",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idPart",
+				"type": "uint256"
 			}
 		],
 		"name": "approveLabeledFile",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -3595,13 +3604,13 @@ exports.didaSystemABI = [
 						"type": "uint256"
 					},
 					{
-						"internalType": "string",
-						"name": "hashLabeledFile",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "partAmount",
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "wage",
+						"name": "totalWage",
 						"type": "uint256"
 					},
 					{
@@ -3610,19 +3619,41 @@ exports.didaSystemABI = [
 						"type": "address"
 					},
 					{
-						"internalType": "address",
-						"name": "implementer",
-						"type": "address"
-					},
-					{
-						"internalType": "bool",
-						"name": "locked",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "isLabeled",
-						"type": "bool"
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "idPart",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "subHash",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "labeler",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "subHashLabeled",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "partWage",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isAccept",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct FileStruct.Label[]",
+						"name": "arrPartLabel",
+						"type": "tuple[]"
 					}
 				],
 				"internalType": "struct FileStruct.UnlabelFile[]",
@@ -3654,8 +3685,13 @@ exports.didaSystemABI = [
 					},
 					{
 						"internalType": "string",
-						"name": "idMongo",
+						"name": "hashContent",
 						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "star",
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -3666,6 +3702,27 @@ exports.didaSystemABI = [
 				"internalType": "struct FileStruct.Feedback[]",
 				"name": "",
 				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idUnlabelFile",
+				"type": "uint256"
+			}
+		],
+		"name": "getHashLabel",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -3824,13 +3881,13 @@ exports.didaSystemABI = [
 						"type": "uint256"
 					},
 					{
-						"internalType": "string",
-						"name": "hashLabeledFile",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "partAmount",
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "wage",
+						"name": "totalWage",
 						"type": "uint256"
 					},
 					{
@@ -3839,19 +3896,41 @@ exports.didaSystemABI = [
 						"type": "address"
 					},
 					{
-						"internalType": "address",
-						"name": "implementer",
-						"type": "address"
-					},
-					{
-						"internalType": "bool",
-						"name": "locked",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "isLabeled",
-						"type": "bool"
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "idPart",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "subHash",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "labeler",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "subHashLabeled",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "partWage",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isAccept",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct FileStruct.Label[]",
+						"name": "arrPartLabel",
+						"type": "tuple[]"
 					}
 				],
 				"internalType": "struct FileStruct.UnlabelFile[]",
@@ -3882,13 +3961,13 @@ exports.didaSystemABI = [
 						"type": "uint256"
 					},
 					{
-						"internalType": "string",
-						"name": "hashLabeledFile",
-						"type": "string"
+						"internalType": "uint256",
+						"name": "partAmount",
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "wage",
+						"name": "totalWage",
 						"type": "uint256"
 					},
 					{
@@ -3897,19 +3976,41 @@ exports.didaSystemABI = [
 						"type": "address"
 					},
 					{
-						"internalType": "address",
-						"name": "implementer",
-						"type": "address"
-					},
-					{
-						"internalType": "bool",
-						"name": "locked",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "isLabeled",
-						"type": "bool"
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "idPart",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "subHash",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "labeler",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "subHashLabeled",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "partWage",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isAccept",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct FileStruct.Label[]",
+						"name": "arrPartLabel",
+						"type": "tuple[]"
 					}
 				],
 				"internalType": "struct FileStruct.UnlabelFile",
@@ -4066,6 +4167,26 @@ exports.didaSystemABI = [
 	},
 	{
 		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idUnlabelFile",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idPart",
+				"type": "uint256"
+			}
+		],
+		"name": "removeLabeledFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [],
 		"name": "renounceOwnership",
 		"outputs": [],
@@ -4133,8 +4254,13 @@ exports.didaSystemABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_idMongo",
+				"name": "_hashContent",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_star",
+				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
@@ -4143,6 +4269,21 @@ exports.didaSystemABI = [
 			}
 		],
 		"name": "takeFeedback",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idUnlabelFile",
+				"type": "uint256"
+			}
+		],
+		"name": "takeLabeler",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",

@@ -128,6 +128,8 @@ export function getRanking(){
         dispatch(ranking_start())
         getRankingAPI()
         .then((data) => {
+            console.log('Trgahahahhaaa')
+            console.log(data)
             dispatch(set_ranking(data))
         })
         .catch((err) => {

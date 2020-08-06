@@ -11,9 +11,11 @@ import {
   Typography,
   Table,
   Progress,
+  Rate,
   Statistic,
   Form,
-  Input
+  Input,
+  Icon
 } from 'antd';
 import * as moment from 'moment';
 import MusicPlayerMainContent from '../../components/musicPlayer/musicPlayerMainContent';
@@ -29,7 +31,7 @@ import FollowButton from '../../components/followButton'
 import { withRouter } from 'react-router';
 import {formatThousands} from '../../utils/common'
 import Component404 from '../../components/404'
-import {postViewMusic, getFindDataList, getUnlabelDataList} from '../../api/userAPI'
+import {postViewMusic, getFindDataList, getUnlabelDataList,getFeedbackFile, takeFeedback, getFeedback,getUserDownload} from '../../api/userAPI'
 import MusicCard from '../../components/musicCard'
 import StyleLoadingCard from '../../components/musicCard/styleLoadingCard'
 import UserHomeCard from '../../components/userHomeCard'
@@ -46,7 +48,13 @@ class SongContent extends React.Component {
 
   state = {
     labelDataList: [],
+    feedbackList:[],
+    isUsing: false,
+    starAmount: 0,
+    amountCount: 0,
     loading: true,
+    isHasSlot: false,
+    objLabeler: null
   };
 
   componentWillReceiveProps({idMongo}){
@@ -59,27 +67,80 @@ class SongContent extends React.Component {
     this.props.getSongByID(this.props.idMongo)
     this.props.getRelatedUser()
     postViewMusic({idSongMongo: this.props.idMongo})
+    
+    getUserDownload(this.props.userReducer.user.addressEthereum).then(async res=>{
+      getFeedbackFile(this.props.songReducer.songInfo.idFile).then(async res=>{
+        if(res.length !==0){
+          let stars = 0
+          await Promise.all( res.map(element => {
+            stars=stars + element.star
+            })
+          )
+          this.setState({
+            starAmount: Math.round(stars/res.length)
+          })
 
+        }
+      })
+      await Promise.all( res.map(element => {
+        if (this.props.songReducer.songInfo.idFile === element.idFile){
+          this.state.isUsing = true
+        }
+        })
+      )
+    })
+    
     getUnlabelDataList().then(async data => {
       let pageData = []
       console.log('alooooooasoso')
       console.log(data)
+      // let data1={
+      //   idFile: this.props.songReducer.songInfo.idFile
+      // }
+      // console.log('alooooooasoso222222')
+      // console.log(data1)
+      // getFeedback(data1)
+      // .then(res=>{
+      //   console.log('tradivergenttttttttttttttttttt')
+      //   console.log(res)
+      //   this.setState({
+      //     feedbackList: res
+      //   })
+      // })
+    
+      // console.log(this.state.feedbackList)
       await Promise.all( data.map(element => {
-        if (this.props.songReducer.songInfo.idFile === element.idFile && pageData.length === 0){
+        if (this.props.songReducer.songInfo.idFile === element.idFile){
           pageData.push(element)
         }
         })
       )
-      if(pageData.length != 0){
-        return pageData
+      if(pageData.length !== 0){
+        await Promise.all( pageData[0].arrPartLabel.map(element => {
+          if ( element.labeler === "0x0000000000000000000000000000000000000000"){
+            this.state.isHasSlot = true
+          }
+          if (element.labeler === this.props.userReducer.user.addressEthereum){
+
+            this.setState({
+              objLabeler: element,
+            })
+          }
+          if(element.isAccept === false){
+            this.state.amountCount++
+          }
+          })
+        )
       }
-      return [];
+      return pageData;
     })
     .then( (result)=>{
       this.setState({
         labelDataList: result,
         loading: false
       })
+      console.log("sdfadsfasdf")
+      console.log(this.state.labelDataList)
     })
   }
 
@@ -90,22 +151,22 @@ class SongContent extends React.Component {
     const columns = [
       {
         title: 'Address',
-        dataIndex: 'investor',
+        dataIndex: 'labeler',
         key: 'address',
         ellipsis: true,
         render: address => <Button  style={{textAlign: 'left', padding: 0}}  type="link" onClick={() => this.props.history.push(`/page/${address}`)}>{address}</Button>
       },
       {
-        title: 'Invest percent',
-        dataIndex: 'percentage',
+        title: 'Id Part',
+        dataIndex: 'idPart',
         key: 'percent',
-        render: percent => <Text>{parseFloat(percent / 1000).toFixed(3)} %</Text>,
+        render: percent => <Text>{percent}</Text>,
       },
       {
-        title: 'Invest Amount',
-        dataIndex: 'amount',
+        title: 'Result',
+        dataIndex: 'subHashLabeled',
         key: 'amount',
-        render: amount => <Text>{formatThousands(amount)} DIV</Text>,
+        render: amount => <Button  style={{textAlign: 'left', padding: 0}}  type="link" onClick={() => {window.open(`https://ipfs.jumu.tk/${amount}`,'_blank');}}>{amount}</Button>,
       }, 
     ];    
     return (
@@ -129,6 +190,9 @@ class SongContent extends React.Component {
                     description={<Text> {formatThousands(songInfo.follow)} Follow </Text>} 
                     />
                 </Row>
+                <Row>
+                  <Rate disabled value={this.state.starAmount}/>
+                </Row>
                 <Row style={{padding: 5, margin: 5}}>
                   <Avatar shape='square' size={220} src={window.$linkIPFS + songInfo.image} alt="Dataset photo"/>
                   <Tooltip title={songInfo.name} placement="leftTop">
@@ -138,12 +202,12 @@ class SongContent extends React.Component {
                   </Tooltip>
                   {
                     songInfo.isValid == null ?
-                      <Title level={8} type="danger">Unrecommend by Admin</Title>
+                      <Title level={3} type="danger">Unrecommend by Admin</Title>
                     :
                     songInfo.isValid ?
-                      <Title level={8} type="secondary" style={{color: green}}>Recommend by Admin</Title>
+                      <Title level={3} type="secondary" style={{color: green}}>Recommend by Admin</Title>
                     :
-                      <Title level={8} type="warning">Not Verify</Title>
+                      <Title level={3} type="warning">Not Verify</Title>
                   }
                   
                 </Row>
@@ -161,17 +225,17 @@ class SongContent extends React.Component {
               <Col span={16}>
                 <Row style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around', marginBottom: 10, paddingBottom: 10}}>
                     <FollowButton ownerSongID={songInfo.userUpload._id} isFollowed={songInfo.isFollowed}/> 
-                    <UsingISO disabled={(this.props.userReducer.user.id !== songInfo.userUpload._id) ? true : false} idFile={songInfo.idFile}/> 
+                    <UsingISO isCompleteLabel={songInfo.IsLabeling} disabled={(this.props.userReducer.user.id !== songInfo.userUpload._id) ? true : false} idFile={songInfo.idFile} unLabelFile={this.state.labelDataList} /> 
                     <InputDescription disabled={(this.props.userReducer.user.id !== songInfo.userUpload._id) ? true : false} idMongo={this.props.idMongo}/>
                     {
-                    this.state.labelDataList.length ===0 ?
+                    this.state.labelDataList.length === 0 || songInfo.IsLabeling ?
                       <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
                         <Text>No label</Text>
                       </Button>
                       :
                       this.state.labelDataList.map(record =>
                         <Col key={record.idFile} >
-                          <InvestISO record={record}/>
+                          <InvestISO hasSlot={this.state.isHasSlot} idFile={songInfo.idFile} objLabeler={this.state.objLabeler}/>
                         </Col>
                       )
                     }
@@ -210,27 +274,30 @@ class SongContent extends React.Component {
                   :
                   <Text> This song is not using ISO yet. </Text>
                   } */}
-                  {songInfo.IsISO ? 
-                  <div>
-                  <Countdown valueStyle={{fontSize: '17px', textAlign: 'center', margin: '5px'}} value={songInfo.timeExpired * 1000} format="D Ngày H Giờ m Phút s" />
-                  <Progress
-                    style={{paddingRight: '10px', margin: '5px'}}
-                    strokeColor={{
-                      from: '#108ee9',
-                      to: '#FF5733',
-                    }}
-                    percent={Number(parseFloat(100 - (songInfo.amountRemaining * 100 / songInfo.offerAmount)).toFixed(1))}
-                    status="active"
-                    showInfo
-                  />
-                  {/* <TextText title='Progress' content={formatThousands(songInfo.offerAmount - songInfo.amountRemaining) + ' / ' + formatThousands(songInfo.offerAmount) + ' DIV'}/> */}
-                  <TextText title='Fee' content={formatThousands(songInfo.offerAmount) + ' DIV'}/>
-                  {/* <TextText title='Total Offer Percent' content={parseFloat(songInfo.offerPercent / 1000).toFixed(3) + '%'}/>
-                  <TextText title='Amount Remaining' content={formatThousands(songInfo.amountRemaining) + ' HAK'}/>
-                  <TextText title='Owner Percent Remaining' content={parseFloat(songInfo.ownerPercent / 1000).toFixed(3) + '%'}/> */}
-                  <TextText title='Labeler' content=''/>
-                  <Table rowKey={(record) => record.idFile} columns={columns} dataSource={songInfo.investListISO} pagination={false}/>
-                  </div>
+                  { this.state.labelDataList.length !== 0 ?
+                    this.props.userReducer.user.id === songInfo.userUpload._id ?
+                      <div>
+                        <Progress
+                          style={{paddingRight: '10px', margin: '5px'}}
+                          strokeColor={{
+
+                            from: '#108ee9',
+                            to: '#DDDD21',
+                          }}
+                          percent={Number(parseFloat(100 - (this.state.amountCount * 100 / this.state.labelDataList[0].partAmount)).toFixed(1))}
+                          status="active"
+                          showInfo
+                        />
+                        {/* <TextText title='Progress' content={formatThousands(songInfo.offerAmount - songInfo.amountRemaining) + ' / ' + formatThousands(songInfo.offerAmount) + ' DIV'}/> */}
+                        <TextText title='Total Wage' content={formatThousands(this.state.labelDataList[0].totalWage) + ' DIVs'}/>
+                        {/* <TextText title='Total Offer Percent' content={parseFloat(songInfo.offerPercent / 1000).toFixed(3) + '%'}/> */}
+                        <TextText title='Total Part' content={formatThousands(this.state.labelDataList[0].partAmount) + ' parts'}/>
+                        {/* <TextText title='Owner Percent Remaining' content={parseFloat(songInfo.ownerPercent / 1000).toFixed(3) + '%'}/> */}
+                        <TextText title='Labeler List' content=''/>
+                        <Table rowKey={(record) => record.idFile} columns={columns} dataSource={this.state.labelDataList[0].arrPartLabel.filter(element=>element.isAccept === true)} pagination={false}/>
+                      </div>
+                      : 
+                      <Text type="danger"> You are not allow to see this part <Icon type="smile" theme="twoTone" /> </Text>
                   :
                   <Text> This dataset is not finding labeler. </Text>
                   }
@@ -286,12 +353,18 @@ class SongContent extends React.Component {
             </Row>
             <Row>
               <Title level={2} type="main"><u>FEEDBACK</u></Title>
-              <FeedbackTable/>
+              <FeedbackTable idFile={songInfo.idFile}/>
+              {/* {
+                this.props.pageReducer.dow
+              } */}
               {
-
+                this.state.isUsing ?
+                  <div>
+                    <Title level={2} type="main"><u>YOUR OPINION</u></Title>
+                    <WrappedFeedback idFile={songInfo.idFile}/>
+                  </div>
+                  : <Text><Icon type="smile"theme="twoTone" twoToneColor="#617ECB" spin={true} /> Buy to review</Text>
               }
-              <Title level={2} type="main"><u>YOUR OPINION</u></Title>
-              <WrappedFeedback />
             </Row>
           </Col>
           <Col span={6}>

@@ -190,7 +190,7 @@ class HomeContent extends Component {
               }
             </Row>
 
-            <Row gutter={[8, 0]} style={{marginTop: 20}} >
+            {/* <Row gutter={[8, 0]} style={{marginTop: 20}} >
               <Col span={6}><Title level={4} type="secondary">THE HOT SURVEY</Title></Col>
               <Col span={6}></Col>
               <Col span={6}></Col>
@@ -198,8 +198,8 @@ class HomeContent extends Component {
             </Row>
 
             <Row gutter={[8, 0]} type="flex" justify="space-around">
-              {/* {appReducer.homeData  ?
-                appReducer.homeData.mostNew */}
+              {appReducer.homeData  ?
+                appReducer.homeData.mostNew 
                 {dataset.map((record) => {
                   return <Col key={record._id} span={6} style={{width: 190, marginTop: 20}}><MusicCard songInfo={record}/></Col>
                 })}
@@ -211,8 +211,8 @@ class HomeContent extends Component {
                   <Col span={5} style={{ marginTop: 20}}><StyleLoadingCard/></Col>
                   <Icon span={4} type="double-right" onClick={()=> this.props.history.push('/upload')}/>
                 </React.Fragment>
-              } */}
-            </Row>
+              } 
+            </Row> */} 
             <Row gutter={[8, 0]} style={{marginTop: 20}} >
               <Col span={6}><Title level={4} type="secondary">NEW UPLOAD</Title></Col>
               <Col span={6}></Col>

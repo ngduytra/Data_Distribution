@@ -298,6 +298,23 @@ export function postHuntFile(data){
   })
 }
 
+export function postToGetHash(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/users/getHash', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
 export function huntFile(data){
   return new Promise((resolve, reject)=>{
       return axios.post(config.api_url+ '/ethereums/hunt', data, {headers: getHeaders()})
@@ -318,6 +335,40 @@ export function huntFile(data){
 export function approveHuntedFile(data){
   return new Promise((resolve, reject)=>{
       return axios.post(config.api_url+ '/ethereums/approveHuntedFile', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function approveLabeledFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/approveLabeledFile', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function removeLabeledFile(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/removeLabeledFile', data, {headers: getHeaders()})
         .then(res => {
           if (res.data.status === 0) {
             console.log(res.data.error.message)
@@ -366,6 +417,23 @@ export function findLabeler(data){
   })
 }
 
+export function takeFeedback(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/takeFeedback', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
 export function labelFile(data){
   return new Promise((resolve, reject)=>{
       return axios.post(config.api_url+ '/ethereums/label', data, {headers: getHeaders()})
@@ -380,6 +448,61 @@ export function labelFile(data){
         .catch(err => {
           reject(err);
         });
+  })
+}
+
+export function takeLabeler(data){
+  return new Promise((resolve, reject)=>{
+      return axios.post(config.api_url+ '/ethereums/takeLabeler', data, {headers: getHeaders()})
+        .then(res => {
+          if (res.data.status === 0) {
+            console.log(res.data.error.message)
+              return reject(res.data.error.message)
+          }
+          console.log("this is result " + res.data.result)
+          resolve(res.data.result);
+        })
+        .catch(err => {
+          reject(err);
+        });
+  })
+}
+
+export function getHash(){
+  return new Promise((resolve, reject) => {
+    return axios.get(config.api_url+ '/ethereums/getHashLabel', {
+      headers: getHeaders()
+    })
+    .then( res => {
+      if (res.data.status === 0)
+        return reject(res.data.error.message)
+      console.log(res.data.result)
+      resolve(res.data.result)
+    })
+    .catch(err => {
+      console.log("loi ne: " + err)
+      reject(err)
+    })
+  })
+}
+
+export function getFeedbackFile(idFile){
+  return new Promise((resolve, reject) => {
+    console.log('trahassjsjjssjsjsjssssss')
+    console.log(idFile)
+    return axios.get(config.api_url+ '/ethereums/getFeedback?idFile='+idFile,{
+      headers: getHeaders()
+    })
+    .then( res => {
+      if (res.data.status === 0)
+        return reject(res.data.error.message)
+      console.log(res.data.result)
+      resolve(res.data.result)
+    })
+    .catch(err => {
+      console.log("loi ne: " + err)
+      reject(err)
+    })
   })
 }
 
@@ -552,10 +675,12 @@ export function getUserPage(userName){
 
 export function getRanking(){
   return new Promise((resolve, reject) => {
-    return axios.get(config.api_url+ '/ethereums/getTimeRanking', {
+    return axios.get(config.api_url+ '/users/getRanking', {
       headers: getHeaders()
     })
     .then( res => {
+      console.log('skskskkskksksksk')
+      console.log(res)
       if (res.data.status === 0)
         return reject(res.data.error.message)
       resolve(res.data.result)

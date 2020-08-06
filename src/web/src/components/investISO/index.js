@@ -11,7 +11,7 @@ import {
   } from 'antd';
 import 'antd/dist/antd.css';
 import {connect} from 'react-redux';
-import {investISO, labelFile} from '../../api/userAPI'
+import {investISO, labelFile, takeLabeler} from '../../api/userAPI'
 import {showNotificationTransaction, showNotificationLoading, showNotificationFail} from '../../utils/common'
 
 const { Text } = Typography;
@@ -30,8 +30,8 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
             onOk={onCreate}
           >
             <Form layout="horizontal">
-              <Form.Item label="Labeled File">
-                {getFieldDecorator('investAmount', {
+              <Form.Item label="Hash Labeled File">
+                {getFieldDecorator('hashFile', {
                   rules: [{ required: true, message: 'Please input a string!'}],
                   initialValue: "",
                 })(
@@ -42,6 +42,13 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
                     // parser={value => value.replace(/\$\s?|(,*)/g, '')}
                   />
                 )}
+              </Form.Item>
+              <Form.Item>
+                <Tooltip title="Get content for label assignment" placement="leftTop">
+                  <Button type="primary" htmlType="button" icon="vertical-align-bottom" onClick={() => {window.open(`https://ipfs.jumu.tk/${this.props.subHash}`,'_blank');}}>
+                    <Text>Get hash</Text>
+                  </Button>
+                </Tooltip>
               </Form.Item>
             </Form>
           </Modal>
@@ -64,8 +71,6 @@ class InvestISO extends React.Component {
   };
 
   handleCreate = () => {
-    console.log('Test labell function ssjsjdksjdksjdkskdkjsk')
-    console.log(this.props.record)
     showNotificationLoading("Labeling file ...")
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
@@ -73,8 +78,8 @@ class InvestISO extends React.Component {
         return message.error('Please fill your IPFS hash');
       }
       let data = {
-        idUnlabelFile: this.props.record.idFile,
-        hashFile: values.investAmount
+        idUnlabelFile: this.props.idFile,
+        hashFile: values.hashFile
       }
       console.log(data)
       labelFile(data)
@@ -89,38 +94,59 @@ class InvestISO extends React.Component {
     });
   };
 
+  handleTakeLabeler = () => {
+    showNotificationLoading("Taking labeler ...")
+    let data = {
+      idUnlabelFile: this.props.idFile
+    }
+    console.log('datatatatatatasksjdkakwi')
+    console.log(data)
+    takeLabeler(data)
+    .then((txHash) => {
+        showNotificationTransaction(txHash);
+    })
+    .catch((error) => {
+        showNotificationFail("Error find labeler")
+    })
+  };
+
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
   
   render() {
-    const {record} = this.props
+    const {hasSlot, objLabeler} = this.props
     return (
       <div>
         {
-          record.isLabeled ?
-          <Tooltip title="this dataset is Labeled" placement="leftTop">
-            <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
-              <Text>Labeled</Text>
-            </Button>
-          </Tooltip>
-          : !record.locked ?
+          objLabeler !== null ?
+            objLabeler.isAccept ?
+              <Tooltip title="You has labeled this dataset" placement="leftTop">
+                <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
+                  <Text>Labeled</Text>
+                </Button>
+              </Tooltip>
+              :
               <Tooltip title="Label this dataset" placement="leftTop">
                 <Button type="primary" ghost icon="bg-colors" onClick={this.showModal}>
                   <Text>Label</Text>
                 </Button>
               </Tooltip>
-              : record.user.addressEthereum === this.props.userReducer.user.addressEthereum ?
-                <Tooltip title="Aprrove this dataset" placement="leftTop">
-                  <Button type="primary" ghost icon="bg-colors" onClick={this.showModal}>
-                    <Text>Aprrove</Text>
+            :
+            hasSlot ?
+              <Tooltip title="sign this assignment" placement="leftTop">
+                <Button type="primary" ghost icon="bg-colors" onClick={this.handleTakeLabeler}>
+                  <Text>Take Labeler</Text>
+                </Button>
+              </Tooltip>
+              :
+              <div>
+                <Tooltip title="Label this dataset" placement="leftTop">
+                  <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
+                    <Text>Label</Text>
                   </Button>
                 </Tooltip>
-                : <Tooltip title="this dataset is Locked" placement="leftTop">
-                    <Button disabled={true} type="primary" ghost icon="bg-colors" onClick={this.showModal}>
-                      <Text>Locked</Text>
-                    </Button>
-                  </Tooltip>
+              </div>
           }
         
           <CollectionCreateForm
@@ -128,6 +154,7 @@ class InvestISO extends React.Component {
             visible={this.state.visible}
             onCancel={this.handleCancel}
             onCreate={this.handleCreate}
+            subHash={objLabeler !== null ?objLabeler.subHash:""}
           />
       </div>
     );

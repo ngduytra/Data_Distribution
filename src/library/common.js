@@ -137,6 +137,7 @@ exports.getSongByIdMongo = (idMongo, senderID) => {
 			blockTime: Number(arrData[0][0].blockTime),
 			valid: arrData[0][0].valid,
 			IsISO: arrData[0][0].IsISO,
+			IsLabeling: arrData[0][0].IsLabeling
 		}
 		let temp = Object.assign({}, musicData, songMongo);
 		let songInfo = {
@@ -334,6 +335,7 @@ exports.ModifyUnlabelFile = (tx, senderID) => {
 			let returnObj = {}
 			await User.findOne({addressEthereum: record.renter})
 			.then( async user => {
+
 				const follow = await Follow.countDocuments({followedID: user._id})
 				const isFollowed = await Follow.exists({userID: senderID, followedID: user._id})
 				const data = { 
@@ -346,22 +348,98 @@ exports.ModifyUnlabelFile = (tx, senderID) => {
 				returnObj.user = data
 			})
 			.catch(err=>reject(err))
+			await Music.findOne({idSolidity: Number(record.idFile)})
+			.then( file => {
+				returnObj.music = file
+
+				const data = { 
+					image: file.image,
+					name: file.name,
+					hash: file.hash,
+					_id: file._id
+				}
+				returnObj.music = data
+			})
+			.catch(err=>reject(err))
 			returnObj.idFile = Number(record.idFile)
-			returnObj.file = await Music.findOne({idSolidity: Number(record.idFile)})
-			.lean()
-			.select('image name')
-			returnObj.hashLabeledFile = record.hashLabeledFile
-			returnObj.wage = Number(record.wage)
+			returnObj.partAmount = Number(record.partAmount)
+			returnObj.totalWage = Number(record.totalWage)
 			returnObj.renter = record.renter
-			returnObj.implementer = record.implementer
-			returnObj.locked = record.locked
-			returnObj.isLabeled = record.isLabeled
+			returnObj.arrPartLabel = record.arrPartLabel.map(e => {
+				let labelObj = {}
+				labelObj.idPart = Number(e.idPart)
+				labelObj.subHash = e.subHash
+				labelObj.labeler = e.labeler
+				labelObj.subHashLabeled = e.subHashLabeled
+				labelObj.partWage = Number(e.partWage)
+				labelObj.isAccept  = e.isAccept
+				return labelObj
+			})
+
 			return returnObj
 		})))
+		// return resolve(result)
 	} catch (error) {
 		return reject(error)
 	}
 	})
+}
+
+exports.ModifyFeedback = (tx, senderID) => {
+	return new Promise( async (resolve, reject) => {
+	try {
+		return resolve( await Promise.all(tx.map( async record => {
+			let returnObj = {}
+			await User.findOne({addressEthereum: record.ownerFeedback})
+			.then( async user => {
+
+				const follow = await Follow.countDocuments({followedID: user._id})
+				const isFollowed = await Follow.exists({userID: senderID, followedID: user._id})
+				const data = { 
+					nickName: user.nickName,
+					avatar: user.avatar,
+					addressEthereum: user.addressEthereum,
+					follow,
+					isFollowed
+				}
+				returnObj.user = data
+			})
+			.catch(err=>reject(err))
+			await Music.findOne({idSolidity: Number(record.idFile)})
+			.then( file => {
+				returnObj.music = file
+
+				const data = { 
+					image: file.image,
+					name: file.name,
+					hash: file.hash,
+					_id: file._id
+				}
+				returnObj.music = data
+			})
+			.catch(err=>reject(err))
+			await fetch(`https://ipfs.jumu.tk/${record.hashContent}`)
+			.then(response => response.json())
+			.then((jsonData) => {
+				returnObj.content = jsonData
+			})
+			.catch(err=>reject(err))
+			returnObj.hashContent = record.hashContent
+			returnObj.star = Number(record.star)
+
+			return returnObj
+		})))
+		// return resolve(result)
+	} catch (error) {
+		return reject(error)
+	}
+	})
+}
+
+exports.ModifyHash = (tx) => {
+	let returnObj = {}
+	returnObj.hash = tx
+	return returnObj
 }
 
 exports.ModifyPersonalData = (tx, senderID) => {

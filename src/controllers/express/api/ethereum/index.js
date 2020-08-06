@@ -28,6 +28,8 @@ ethereumRoutes.post('/posthuntfile', require('./posthuntfile'))
 
 ethereumRoutes.post('/findLabeler', require('./findLabeler'))
 
+ethereumRoutes.post('/takeLabeler', require('./takeLabeler'))
+
 ethereumRoutes.post('/hunt', require('./hunt'))
 
 ethereumRoutes.post('/label', require('./label'))
@@ -36,12 +38,18 @@ ethereumRoutes.post('/approveHuntedFile', require('./approveHuntedFile'))
 
 ethereumRoutes.post('/approveLabeledFile', require('./approveLabeledFile'))
 
+ethereumRoutes.post('/removeLabeledFile', require('./removeLabeledFile'))
+
 ethereumRoutes.post('/cancelHuntedFile', require('./cancelHuntedFile'))
 
 ethereumRoutes.post('/setPersonalInformation', require('./setPersonalInformation'))
 
+ethereumRoutes.post('/takeFeedback', require('./takeFeedback'))
+
 
 ethereumRoutes.get('/getHuntFile', require('./getHuntFile'))
+
+ethereumRoutes.get('/getHashLabel', require('./getHashLabel'))
 
 ethereumRoutes.get('/getPersonalInformation', require('./getPersonalInformation'))
 
@@ -64,6 +72,8 @@ ethereumRoutes.get('/getSongContract/:idContractMongo', require('./getSongContra
 ethereumRoutes.get('/getOwnerContractList', require('./getOwnerContractList'))
 
 ethereumRoutes.get('/getSignerContractList', require('./getSignerContractList'))
+
+ethereumRoutes.get('/getFeedback', require('./getFeedback'))
 
 
 

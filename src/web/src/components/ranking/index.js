@@ -21,6 +21,8 @@ class Ranking extends React.Component {
   }
   render() {
     const {rankingdata} = this.props.appReducer
+    console.log("Hellelelelellelel")
+    console.log(rankingdata)
     return (
       <div style={{width: '100%'}}>
         <Title level={4} type="secondary"> THE MOST DOWNLOADED DATASET </Title>
@@ -40,7 +42,7 @@ class Ranking extends React.Component {
           (
             <List
               itemLayout="horizontal"
-              dataSource={rankingdata}
+              dataSource={rankingdata.mostNew}
               renderItem={(item, index) => (
                 item ? 
                 <List.Item>

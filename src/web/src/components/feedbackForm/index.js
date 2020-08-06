@@ -17,6 +17,8 @@ import {
   Input
 } from 'antd';
 import Title from 'antd/lib/skeleton/Title';
+import {takeFeedback} from '../../api/userAPI'
+import {showNotificationTransaction, showNotificationLoading, showNotificationFail} from '../../utils/common'
 
 const { Option } = Select;
 function getBase64(file) {
@@ -57,10 +59,21 @@ class feedbackForm extends React.Component {
 
   handleChange = ({ fileList }) => this.setState({ fileList });
   handleSubmit = e => {
+    showNotificationLoading("Feedbacking ...")
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        let data = {
+          content: values.content,
+          star: values.rate,
+          idFile: this.props.idFile
+        }
+        takeFeedback(data).then((result) => {
+          showNotificationTransaction(result);
+        }).catch((error) => {
+          showNotificationFail("Feedbacking went wrong")
+      })
       }
     });
   };
@@ -96,7 +109,10 @@ class feedbackForm extends React.Component {
           })(<Rate />)}
         </Form.Item>
         <Form.Item>
-          <Input/>
+          {getFieldDecorator('content', {
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item>
           <Upload
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             listType="picture-card"

@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         .select('privateKey')
     let wallet = new ethers.Wallet(user.privateKey, config.provider);
     let contractWithSigner = new ethers.Contract(config.didaSystemAddress, config.didaSystemABI, wallet)
-    contractWithSigner.approveLabeledFile(req.body.idUnlabelFile, req.body.idPart)
+    contractWithSigner.removeLabeledFile(req.body.idUnlabelFile, req.body.idPart)
     .then(async tx => {
         if(!tx){
             return Promise.reject("Fail to execute transaction [approve label file]");
