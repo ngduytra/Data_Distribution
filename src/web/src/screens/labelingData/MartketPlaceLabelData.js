@@ -39,7 +39,7 @@ class MartketPlaceLabelData extends React.Component {
             <Col key={record.idFile} span={this.props.isPage ? 8 : 6}>
               <InfoLabelFile
                 record={record}
-                action={true}
+                action={false}
               />
             </Col>
           )}

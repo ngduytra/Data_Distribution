@@ -30,7 +30,7 @@ class MusicCard extends React.Component {
         >
         <Meta 
           title={
-            <Tooltip style={{display: 'flex', flexDirection: 'column'}} title={contract.songID.name} placement="top" onClick={() => this.props.history.push(`/song/${contract.songID._id}`)} >
+            <Tooltip style={{display: 'flex', flexDirection: 'column'}} title={contract.songID.name} placement="top" onClick={() => this.props.history.push(`/data/${contract.songID._id}`)} >
             <div style={{display: 'flex', flexDirection: 'column'}}>
               <Button style={{textAlign: 'left', padding: 0, fontSize: 13, height: 20,  width: '100%'}}  type="link" >{contract.songID.name}</Button>
               <Text style={{fontSize: 13}} type="secondary">{contract.nameContractForm}</Text>
@@ -58,13 +58,13 @@ class MusicCard extends React.Component {
         <Card
           hoverable
           size="small"
-          cover={<img onClick={() => this.props.history.push(`/song/${ songInfo._id}`)} className="img-background-music" alt="music background" src={window.$linkIPFS + songInfo.image}/>}
+          cover={<img onClick={() => this.props.history.push(`/data/${ songInfo._id}`)} className="img-background-music" alt="music background" src={window.$linkIPFS + songInfo.image}/>}
           bodyStyle={{padding: '10px'}}
           bordered={false}
         >
         <Meta 
           title={
-            <Tooltip style={{display: 'flex', flexDirection: 'column'}} title={songInfo.name} placement="top" onClick={() => this.props.history.push(`/song/${ songInfo._id}`)} >
+            <Tooltip style={{display: 'flex', flexDirection: 'column'}} title={songInfo.name} placement="top" onClick={() => this.props.history.push(`/data/${ songInfo._id}`)} >
             <div style={{display: 'flex', flexDirection: 'column'}}>
               <Button style={{textAlign: 'left', padding: 0, fontSize: 13, height: 20,  width: '100%'}}  type="link" >{songInfo.name}</Button>
               <Text style={{fontSize: 13}} type="secondary">{songInfo.artist}</Text>

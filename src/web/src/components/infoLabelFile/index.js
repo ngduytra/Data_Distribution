@@ -20,12 +20,13 @@ class InfoLabelFile extends React.Component {
   <Card
       hoverable
       // style={{ width: 250, display: 'flex', margin: 15, alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}
-      cover={<img className="img-background-music" alt="music background" src={window.$linkIPFS + record.file.image}/>}
+      cover={<img className="img-background-music" alt="music background" src={window.$linkIPFS + record.music.image}/>}
       bodyStyle={{padding: '15px', width: '100%', border: '0px solid green'}}
       actions={action ? [
-        <InvestISO record={record}/>,
-        // <DetailsISO record={record}/>,
-      ] : null
+        <InvestISO isMarket={true} record={record}/>
+        // <DetailsISO record={record}/>
+        ]
+       : null
       }
     >
       <Meta 
@@ -39,7 +40,7 @@ class InfoLabelFile extends React.Component {
         description={<Text> {formatThousands(record.user.follow)} Follow </Text>} 
         />
       
-      <Button  style={{textAlign: 'center', padding: 0, fontSize: 14, height: 20, width:'100%' ,overflow: 'hiden'}}  type="link" onClick={()=> this.props.history.push(`/song/${record.file._id}`)}>{record.file.name}</Button>
+      <Button  style={{textAlign: 'center', padding: 0, fontSize: 14, height: 20, width:'100%' ,overflow: 'hiden'}}  type="link" onClick={()=> this.props.history.push(`/data/${record.music._id}`)}>{record.music.name}</Button>
 
       {/* <br />
       <Text type="secondary" style={{marginTop: "10px"}}>Percent</Text>

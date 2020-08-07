@@ -234,7 +234,7 @@ class Header extends Component {
         title: 'ID Mongo',
         key: 'file',
         ellipsis: true,
-        render: idMongo => <Button style={{textAlign: 'left', padding: 0, fontSize: 14}}  type="link" onClick={() => this.props.history.push(`/song/${idMongo}`)}>{idMongo}</Button>
+        render: idMongo => <Button style={{textAlign: 'left', padding: 0, fontSize: 14}}  type="link" onClick={() => this.props.history.push(`/data/${idMongo}`)}>{idMongo}</Button>
       },
       {
         title: 'Action',

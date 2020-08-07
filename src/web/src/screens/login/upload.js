@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './index.css';
 import config from '../../config';
-import { Upload, message } from 'antd';
+import { Typography,Upload, message } from 'antd';
 
 const { Dragger } = Upload;
+const { Text } = Typography;
 const props = {
     name: 'file',
     multiple: true,
@@ -27,13 +28,16 @@ export default class UploadFile extends React.Component {
     return 
     render() {
         return (
-        <Dragger {...props}>
-          <p className="ant-upload-text">Click or drag file to this area to upload</p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-            band files
-          </p>
-        </Dragger>
+          <div>
+            <Dragger {...props}>
+              <p className="ant-upload-text">Click or drag file to this area to upload</p>
+              <p className="ant-upload-hint">
+                Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                band files
+              </p>
+            </Dragger>
+            {/* <Text>{ipfss}</Text> */}
+          </div>
         )
     }
 }

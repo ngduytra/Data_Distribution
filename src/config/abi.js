@@ -1255,6 +1255,636 @@ exports.fileStorageABI = [
 		"type": "event"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idContractMongo",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_userApproved",
+				"type": "address"
+			}
+		],
+		"name": "setApproved",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idContractMongo",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_userCancel",
+				"type": "address"
+			}
+		],
+		"name": "setCancelContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_Numb",
+				"type": "uint256"
+			}
+		],
+		"name": "setFileLength",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_IDFile",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "idFile",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "idMongoose",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "fileHash",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalDownloader",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "weekDownloader",
+						"type": "int256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "blockTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "valid",
+						"type": "bool"
+					},
+					{
+						"internalType": "enum FileStruct.Kind",
+						"name": "kind",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "IsISO",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "IsLabeling",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct FileStruct.File",
+				"name": "_File",
+				"type": "tuple"
+			}
+		],
+		"name": "setFileList",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_IsISO",
+				"type": "bool"
+			}
+		],
+		"name": "setFileList_IsISO",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_Numb",
+				"type": "uint256"
+			}
+		],
+		"name": "setFileList_totalDownloader",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "int256",
+				"name": "_Numb",
+				"type": "int256"
+			}
+		],
+		"name": "setFileList_weekDownloader",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_Numb",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_Value",
+				"type": "uint256"
+			}
+		],
+		"name": "setISOList",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "investor",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "percentage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct FileStruct.Invest",
+				"name": "_tempInvest",
+				"type": "tuple"
+			}
+		],
+		"name": "setISOList_investListISO",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "idFile",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "idMongoose",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "fileHash",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalDownloader",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "weekDownloader",
+						"type": "int256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "blockTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "valid",
+						"type": "bool"
+					},
+					{
+						"internalType": "enum FileStruct.Kind",
+						"name": "kind",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "IsISO",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "IsLabeling",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct FileStruct.File",
+				"name": "_file",
+				"type": "tuple"
+			}
+		],
+		"name": "setISOListFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_IsUsingID",
+				"type": "uint256"
+			}
+		],
+		"name": "setIsUsingID",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			}
+		],
+		"name": "setListIDISO",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_ownerUserBehaviorContract",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ownerRankingContract",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ownerDidaSystemContract",
+				"type": "address"
+			}
+		],
+		"name": "setOnlyOwnerContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_Now",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum FileStruct.Kind",
+				"name": "_kind",
+				"type": "uint8"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "idFile",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "lastWeekDownloader",
+						"type": "int256"
+					}
+				],
+				"internalType": "struct FileStruct.FileRanking",
+				"name": "_fileRanking",
+				"type": "tuple"
+			}
+		],
+		"name": "setRankingHistory",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idContractMongo",
+				"type": "string"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "idFile",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "songHash",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "contentHash",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "contractMoney",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ownerCompensationAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "ownerApproved",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "signer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "signerCompensationAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "signerApproved",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timeExpired",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isCancel",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct FileStruct.SongContract",
+				"name": "_songContract",
+				"type": "tuple"
+			}
+		],
+		"name": "setSongContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_Now",
+				"type": "uint256"
+			}
+		],
+		"name": "setTimeRanking",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idContractMongo",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_contractOwner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_contractSigner",
+				"type": "address"
+			}
+		],
+		"name": "setUserContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_Recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			}
+		],
+		"name": "setUserList_downloadList",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_Owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			}
+		],
+		"name": "setUserList_investList",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_Owner",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ID",
+				"type": "uint256"
+			}
+		],
+		"name": "setUserList_uploadList",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_Numb",
+				"type": "uint256"
+			}
+		],
+		"name": "setVarIdFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -2120,636 +2750,6 @@ exports.fileStorageABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_idContractMongo",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_userApproved",
-				"type": "address"
-			}
-		],
-		"name": "setApproved",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_idContractMongo",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_userCancel",
-				"type": "address"
-			}
-		],
-		"name": "setCancelContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_Numb",
-				"type": "uint256"
-			}
-		],
-		"name": "setFileLength",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_IDFile",
-				"type": "uint256"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "idFile",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "idMongoose",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "fileHash",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "price",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "totalDownloader",
-						"type": "uint256"
-					},
-					{
-						"internalType": "int256",
-						"name": "weekDownloader",
-						"type": "int256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "blockTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "valid",
-						"type": "bool"
-					},
-					{
-						"internalType": "enum FileStruct.Kind",
-						"name": "kind",
-						"type": "uint8"
-					},
-					{
-						"internalType": "bool",
-						"name": "IsISO",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "IsLabeling",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct FileStruct.File",
-				"name": "_File",
-				"type": "tuple"
-			}
-		],
-		"name": "setFileList",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "_IsISO",
-				"type": "bool"
-			}
-		],
-		"name": "setFileList_IsISO",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_Numb",
-				"type": "uint256"
-			}
-		],
-		"name": "setFileList_totalDownloader",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "int256",
-				"name": "_Numb",
-				"type": "int256"
-			}
-		],
-		"name": "setFileList_weekDownloader",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_Numb",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_Value",
-				"type": "uint256"
-			}
-		],
-		"name": "setISOList",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "idFile",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "idMongoose",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "fileHash",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "price",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "totalDownloader",
-						"type": "uint256"
-					},
-					{
-						"internalType": "int256",
-						"name": "weekDownloader",
-						"type": "int256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "blockTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "valid",
-						"type": "bool"
-					},
-					{
-						"internalType": "enum FileStruct.Kind",
-						"name": "kind",
-						"type": "uint8"
-					},
-					{
-						"internalType": "bool",
-						"name": "IsISO",
-						"type": "bool"
-					},
-					{
-						"internalType": "bool",
-						"name": "IsLabeling",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct FileStruct.File",
-				"name": "_file",
-				"type": "tuple"
-			}
-		],
-		"name": "setISOListFile",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			},
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "investor",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "percentage",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct FileStruct.Invest",
-				"name": "_tempInvest",
-				"type": "tuple"
-			}
-		],
-		"name": "setISOList_investListISO",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_IsUsingID",
-				"type": "uint256"
-			}
-		],
-		"name": "setIsUsingID",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			}
-		],
-		"name": "setListIDISO",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_ownerUserBehaviorContract",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_ownerRankingContract",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_ownerDidaSystemContract",
-				"type": "address"
-			}
-		],
-		"name": "setOnlyOwnerContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_Now",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum FileStruct.Kind",
-				"name": "_kind",
-				"type": "uint8"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "idFile",
-						"type": "uint256"
-					},
-					{
-						"internalType": "int256",
-						"name": "lastWeekDownloader",
-						"type": "int256"
-					}
-				],
-				"internalType": "struct FileStruct.FileRanking",
-				"name": "_fileRanking",
-				"type": "tuple"
-			}
-		],
-		"name": "setRankingHistory",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_idContractMongo",
-				"type": "string"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "idFile",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "songHash",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "contentHash",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "contractMoney",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "ownerCompensationAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "ownerApproved",
-						"type": "bool"
-					},
-					{
-						"internalType": "address",
-						"name": "signer",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "signerCompensationAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "signerApproved",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint256",
-						"name": "timeExpired",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "isCancel",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct FileStruct.SongContract",
-				"name": "_songContract",
-				"type": "tuple"
-			}
-		],
-		"name": "setSongContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_Now",
-				"type": "uint256"
-			}
-		],
-		"name": "setTimeRanking",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_idContractMongo",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_contractOwner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_contractSigner",
-				"type": "address"
-			}
-		],
-		"name": "setUserContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_Recipient",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			}
-		],
-		"name": "setUserList_downloadList",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_Owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			}
-		],
-		"name": "setUserList_investList",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_Owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_ID",
-				"type": "uint256"
-			}
-		],
-		"name": "setUserList_uploadList",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_Numb",
-				"type": "uint256"
-			}
-		],
-		"name": "setVarIdFile",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
 	}
 ]
 
@@ -2786,6 +2786,84 @@ exports.tokenABI = [
 		"type": "event"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "subtractedValue",
+				"type": "uint256"
+			}
+		],
+		"name": "decreaseAllowance",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "addedValue",
+				"type": "uint256"
+			}
+		],
+		"name": "increaseAllowance",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -2803,6 +2881,52 @@ exports.tokenABI = [
 		],
 		"name": "OwnershipTransferred",
 		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "UserBehaviorContract",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "DidaSystem",
+				"type": "address"
+			}
+		],
+		"name": "setOnlyUserBehaviorContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -2828,6 +2952,37 @@ exports.tokenABI = [
 		],
 		"name": "Transfer",
 		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -2887,32 +3042,6 @@ exports.tokenABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
@@ -2949,58 +3078,6 @@ exports.tokenABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "subtractedValue",
-				"type": "uint256"
-			}
-		],
-		"name": "decreaseAllowance",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "addedValue",
-				"type": "uint256"
-			}
-		],
-		"name": "increaseAllowance",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "name",
@@ -3013,26 +3090,6 @@ exports.tokenABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "UserBehaviorContract",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "DidaSystem",
-				"type": "address"
-			}
-		],
-		"name": "setOnlyUserBehaviorContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -3063,63 +3120,6 @@ exports.tokenABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transfer",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
@@ -3298,6 +3298,193 @@ exports.rankingABI = [
 
 exports.didaSystemABI = [
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idHuntFile",
+				"type": "uint256"
+			}
+		],
+		"name": "approveHuntedFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idUnlabelFile",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idPart",
+				"type": "uint256"
+			}
+		],
+		"name": "approveLabeledFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idHuntFile",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelHuntedFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_idMongoose",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_contentHash",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_endDay",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_feePerASurvey",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_surveyInDemand",
+				"type": "uint256"
+			}
+		],
+		"name": "createSurvey",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idFile",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_partAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_totalWage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_subHash",
+				"type": "string[]"
+			}
+		],
+		"name": "FindLabler",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "getPersonalInformation",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "dataHash",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "shared",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct FileStruct.individualData[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idHuntFile",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idHuntedFile",
+				"type": "uint256"
+			}
+		],
+		"name": "hunt",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idUnlabelFile",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_hashFile",
+				"type": "string"
+			}
+		],
+		"name": "Labeling",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -3403,47 +3590,17 @@ exports.didaSystemABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_idFile",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_partAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_totalWage",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string[]",
-				"name": "_subHash",
-				"type": "string[]"
-			}
-		],
-		"name": "FindLabler",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idUnlabelFile",
-				"type": "uint256"
-			},
-			{
 				"internalType": "string",
-				"name": "_hashFile",
+				"name": "_characteristicHash",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_fee",
+				"type": "uint256"
 			}
 		],
-		"name": "Labeling",
+		"name": "postHuntFile",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -3451,14 +3608,8 @@ exports.didaSystemABI = [
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idHuntFile",
-				"type": "uint256"
-			}
-		],
-		"name": "approveHuntedFile",
+		"inputs": [],
+		"name": "publishInformation",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -3478,7 +3629,16 @@ exports.didaSystemABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "approveLabeledFile",
+		"name": "removeLabeledFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -3489,11 +3649,11 @@ exports.didaSystemABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_idHuntFile",
+				"name": "_pDMoney",
 				"type": "uint256"
 			}
 		],
-		"name": "cancelHuntedFile",
+		"name": "setDataSharingCommision",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -3504,31 +3664,121 @@ exports.didaSystemABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_idMongoose",
+				"name": "_dataHash",
 				"type": "string"
 			},
+			{
+				"internalType": "bool",
+				"name": "_shared",
+				"type": "bool"
+			}
+		],
+		"name": "setPersonalInformation",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_token",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_fileStorage",
+				"type": "address"
+			}
+		],
+		"name": "setTokenAddress",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_contentHash",
+				"name": "_hashContent",
 				"type": "string"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_endDay",
+				"name": "_star",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_feePerASurvey",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_surveyInDemand",
+				"name": "_idFile",
 				"type": "uint256"
 			}
 		],
-		"name": "createSurvey",
+		"name": "takeFeedback",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idUnlabelFile",
+				"type": "uint256"
+			}
+		],
+		"name": "takeLabeler",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idSurvey",
+				"type": "uint256"
+			}
+		],
+		"name": "takeSurvey",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idSurvey",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawExcessFromSurvey",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -3831,9 +4081,9 @@ exports.didaSystemABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "getPersonalInformation",
+		"name": "getpersonaldatatest",
 		"outputs": [
 			{
 				"components": [
@@ -3859,7 +4109,39 @@ exports.didaSystemABI = [
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getpublishpersonaldatatest",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "dataHash",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "shared",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct FileStruct.individualData[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -4025,90 +4307,6 @@ exports.didaSystemABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getpersonaldatatest",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "dataHash",
-						"type": "string"
-					},
-					{
-						"internalType": "bool",
-						"name": "shared",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct FileStruct.individualData[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getpublishpersonaldatatest",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "dataHash",
-						"type": "string"
-					},
-					{
-						"internalType": "bool",
-						"name": "shared",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct FileStruct.individualData[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idHuntFile",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_idHuntedFile",
-				"type": "uint256"
-			}
-		],
-		"name": "hunt",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "isOwner",
 		"outputs": [
 			{
@@ -4134,204 +4332,6 @@ exports.didaSystemABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_characteristicHash",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_fee",
-				"type": "uint256"
-			}
-		],
-		"name": "postHuntFile",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "publishInformation",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idUnlabelFile",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_idPart",
-				"type": "uint256"
-			}
-		],
-		"name": "removeLabeledFile",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_pDMoney",
-				"type": "uint256"
-			}
-		],
-		"name": "setDataSharingCommision",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_dataHash",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "_shared",
-				"type": "bool"
-			}
-		],
-		"name": "setPersonalInformation",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_token",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_fileStorage",
-				"type": "address"
-			}
-		],
-		"name": "setTokenAddress",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_hashContent",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_star",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_idFile",
-				"type": "uint256"
-			}
-		],
-		"name": "takeFeedback",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idUnlabelFile",
-				"type": "uint256"
-			}
-		],
-		"name": "takeLabeler",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idSurvey",
-				"type": "uint256"
-			}
-		],
-		"name": "takeSurvey",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_idSurvey",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawExcessFromSurvey",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

@@ -32,6 +32,8 @@ contract FileStruct{
         bool valid;
         Kind kind;
         bool IsISO;
+        bool IsLabeling;
+        
     }
     
     struct FileRanking{
@@ -80,17 +82,25 @@ contract FileStruct{
     
     struct UnlabelFile{
         uint idFile;
-        string hashLabeledFile;
-        uint wage;
+        uint partAmount;
+        uint totalWage;
         address renter;
-        address implementer;
-        bool locked;
-        bool isLabeled;
+        Label[] arrPartLabel;
+    }
+    
+    struct Label {
+        uint idPart;
+        string subHash;
+        address labeler;
+        string subHashLabeled;
+        uint partWage;
+        bool isAccept;
     }
     
     struct Feedback{
         address ownerFeedback;
-        string idMongo;//id in Mongo database to view content
+        string hashContent;
+        uint star;
         uint idFile;
     }
     
@@ -99,7 +109,6 @@ contract FileStruct{
         address owner;
         string idMongoose;
         string contentHash;
-        
         uint startDate;
         uint endDate;
         uint feePerASurvey;
@@ -116,5 +125,6 @@ contract FileStruct{
         address hunter;
         uint fee;
         bool isHunted;
+        bool isCanceled;
     }
 }

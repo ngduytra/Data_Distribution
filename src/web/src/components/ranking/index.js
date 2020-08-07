@@ -51,7 +51,7 @@ class Ranking extends React.Component {
                   </div>
                   <Tooltip title={item.view + " view"} placement="leftTop">
                     <List.Item.Meta
-                      avatar={<Avatar shape="square" size={70} src={window.$linkIPFS + item.image} onClick={() => this.props.history.push(`/song/${item._id}`)}/>}
+                      avatar={<Avatar shape="square" size={70} src={window.$linkIPFS + item.image} onClick={() => this.props.history.push(`/data/${item._id}`)}/>}
                       title={<Button style={{textAlign: 'left', padding: 0, fontSize: 14, height: 20}}  type="link"  onClick={() =>{this.props.set_music_selected(item)}}>{item.name}</Button>}
                       description={
                       <div>

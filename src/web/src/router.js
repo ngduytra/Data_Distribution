@@ -52,11 +52,11 @@ const Root = () => (
                 <PrivateRoute path="/tempContract/:idTempContract"component={UseContractContent}/>
                 <PrivateRoute path="/mainContract/:idContract"component={MainContract}/>
                 <PrivateRoute path="/page/:userName" component={Page} />
-                <PrivateRoute path="/song/:idMongo" component={Song} />
+                <PrivateRoute path="/data/:idMongo" component={Song} />
                 <PrivateRoute path="/validateUser" component={validateUser} />
                 <PrivateRoute component={Component404} />
             </Switch>
-            <MusicPlayer/>
+            {/* <MusicPlayer/> */}
         </div>
     </Router>
 )

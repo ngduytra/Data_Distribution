@@ -9,7 +9,7 @@ const config = {
     url:"http://localhost:6969",
 
     provider: ethers.getDefaultProvider('kovan'),
-    tokenAddress: '0x21907e92CDa01C78823D9289FeA2409C346a68de',
+    tokenAddress: '0x7a62084Ea1B2B29F6Ae5749481202b54Bb38900D',
     tokenABI: [
         {
             "inputs": [],

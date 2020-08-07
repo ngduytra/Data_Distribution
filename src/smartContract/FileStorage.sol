@@ -8,6 +8,7 @@ contract FileStorage is FileStruct{
     address owner;
     address ownerUserBehaviorContract;
     address ownerRankingContract;
+    address ownerDidaSystemContract;
     event OwnershipTransferred(address indexed previousOwner,address indexed newOwner);
     mapping (uint => File) FileList;
     mapping (address => User) UserList;
@@ -29,14 +30,16 @@ contract FileStorage is FileStruct{
     modifier onlyOwnerContract() {
         require(
             msg.sender == ownerRankingContract ||
+            msg.sender == ownerDidaSystemContract ||
             msg.sender == ownerUserBehaviorContract ||
             msg.sender == owner
             );
         _;
     }
-    function setOnlyOwnerContract(address _ownerUserBehaviorContract,address _ownerRankingContract) public onlyOwner{
+    function setOnlyOwnerContract(address _ownerUserBehaviorContract, address _ownerRankingContract, address _ownerDidaSystemContract ) public onlyOwner{
         ownerUserBehaviorContract = _ownerUserBehaviorContract;
         ownerRankingContract = _ownerRankingContract;
+        ownerDidaSystemContract = _ownerDidaSystemContract;
     }
     
     

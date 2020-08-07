@@ -83,7 +83,7 @@ contract DidaSystem is FileStruct, Ownable{
         emit Log_takenSurveySuccessfully(msg.sender, _idSurvey);
     }
     
-    function takeFeedback(string memory _idMongo, uint _idFile) public {
+    function takeFeedback(string memory _hashContent,uint _star, uint _idFile) public {
         bool hasFile;
         for(uint i =0; i < fileStorage.getUserList(msg.sender).downloadList.length; i++){
             if(_idFile == fileStorage.getUserList(msg.sender).downloadList[i]){
@@ -94,7 +94,8 @@ contract DidaSystem is FileStruct, Ownable{
         require(hasFile,'You have not used this data');
         Feedback memory _fb = Feedback(
             msg.sender,
-            _idMongo,
+            _hashContent,
+            _star,
             _idFile
         );
         feedback[_idFile].push(_fb);
@@ -163,7 +164,7 @@ contract DidaSystem is FileStruct, Ownable{
         huntedfile[_idHuntFile].isCanceled = true;
     }
     
-    
+
     
     
     function setPersonalInformation(
@@ -206,6 +207,10 @@ contract DidaSystem is FileStruct, Ownable{
         return result;
     }
     
+    function getPersonalDataByAddress(address _owner) public view returns(individualData memory){
+        return personalData[_owner];
+    }
+    
     function getpublishpersonaldatatest() public view returns(individualData[] memory){
         individualData[] memory result = new individualData[](addressPersonalDataPublisher.length);
         for(uint i = 0; i < addressPersonalDataPublisher.length ; i++){
@@ -239,7 +244,7 @@ contract DidaSystem is FileStruct, Ownable{
         return result;
     }
     
-    function FindLabler(uint _idFile, uint _wage) public {
+    function FindLabler(uint _idFile, uint _partAmount, uint _totalWage, string[] memory _subHash) public {
         bool hasContract = false;
         bool isDownloaded = false;
         for (uint i = 0; i < usingDataContractOfAData[_idFile].length; i++) {
@@ -257,15 +262,25 @@ contract DidaSystem is FileStruct, Ownable{
         }
         require(msg.sender == fileStorage.getFileList(_idFile).owner || hasContract == true || isDownloaded == true);
         require(fileStorage.getFileList(_idFile).IsLabeling == false);
-        UnlabelFile memory _uf = UnlabelFile(
-            _idFile,
-            "",
-            _wage,
-            msg.sender,
-            address(0),
-            false,
-            false
-        );
+        require(unlabelfile[_idFile].renter == address(0),"This dataset is labeled");
+        // require(_partAmount > 0 || _partAmount < )
+        
+        UnlabelFile storage _uf = unlabelfile[_idFile];
+        _uf.idFile = _idFile;
+        _uf.partAmount =  _partAmount;
+        _uf.totalWage =  _totalWage;
+        _uf.renter = msg.sender;
+        for(uint i = 0; i < _partAmount ; i++){
+            _uf.arrPartLabel.push(Label(
+                i,
+                _subHash[i],
+                address(0),
+                "",
+                _totalWage.div(_partAmount),
+                false
+                ));
+        }
+        
         unlabelfile[_idFile]=_uf;
         unlabelFileId.push(_uf.idFile);
     }
@@ -300,19 +315,88 @@ contract DidaSystem is FileStruct, Ownable{
         }
         return result;
     }
-    function Labeling(uint _idUnlabelFile, string memory _hashFile) public {
-        require(unlabelfile[_idUnlabelFile].isLabeled == false || unlabelfile[_idUnlabelFile].locked == false, "File is no longer need label");
-        unlabelfile[_idUnlabelFile].implementer = msg.sender;
-        unlabelfile[_idUnlabelFile].hashLabeledFile = _hashFile;
-        unlabelfile[_idUnlabelFile].locked = true;
+    
+    function takeLabeler(uint _idUnlabelFile) public {
+        bool hasLabel = false;
+        for(uint i = 0; i < unlabelFileId.length ; i++){
+            if(_idUnlabelFile == unlabelFileId[i]){
+                hasLabel = true;
+                break;
+            }
+        }
+        require(hasLabel == true,'No need label');
+        bool isLabeled = false;
+        string memory hashLabel = "";
+        uint idLabel = 0;
+        for(uint i = 0; i < unlabelfile[_idUnlabelFile].arrPartLabel.length ; i++){
+            if(unlabelfile[_idUnlabelFile].arrPartLabel[i].labeler == msg.sender){
+                isLabeled = true;
+                break;
+            }
+        }
+        require(isLabeled == false,"You are not allowed to take this actions");
+        for(uint i = 0; i < unlabelfile[_idUnlabelFile].arrPartLabel.length ; i++){
+            if(unlabelfile[_idUnlabelFile].arrPartLabel[i].labeler == address(0)){
+                hashLabel = unlabelfile[_idUnlabelFile].arrPartLabel[i].subHash;
+                idLabel = i;
+                break;
+            }
+        }
+        require(keccak256(abi.encodePacked((hashLabel))) != keccak256(abi.encodePacked((""))), "This dataset has already labeled");
+        unlabelfile[_idUnlabelFile].arrPartLabel[idLabel].labeler = msg.sender;
     }
     
-    function approveLabeledFile(uint _idUnlabelFile) public returns(string memory){
+    function getHashLabel(uint _idUnlabelFile) public view returns(string memory) {
+        string memory hashLabel= "";
+        for(uint i = 0; i < unlabelfile[_idUnlabelFile].arrPartLabel.length ; i++){
+            if(unlabelfile[_idUnlabelFile].arrPartLabel[i].labeler == msg.sender && unlabelfile[_idUnlabelFile].arrPartLabel[i].isAccept == false){
+                hashLabel = unlabelfile[_idUnlabelFile].arrPartLabel[i].subHash;
+                break;
+            }
+        }
+        require(keccak256(abi.encodePacked((hashLabel))) != keccak256(abi.encodePacked((""))), "File is no longer need label or you can't implement this actions");
+        return hashLabel;
+    }
+    
+    function Labeling(uint _idUnlabelFile, string memory _hashFile) public {
+        uint _idFile = 1000;
+        for(uint i = 0; i < unlabelfile[_idUnlabelFile].arrPartLabel.length ; i++){
+            if(unlabelfile[_idUnlabelFile].arrPartLabel[i].labeler == msg.sender){
+                _idFile = i;
+                break;
+            }
+        }
+        require(_idFile != 1000, "File is no longer need label or you can't implement this actions");
+        require(unlabelfile[_idUnlabelFile].arrPartLabel[_idFile].isAccept == false);
+        unlabelfile[_idUnlabelFile].arrPartLabel[_idFile].subHashLabeled = _hashFile;
+    }
+    
+    function removeLabeledFile(uint _idUnlabelFile, uint _idPart) public {
         require(unlabelfile[_idUnlabelFile].renter == msg.sender,"You have no right to approve!");
-        require(unlabelfile[_idUnlabelFile].locked = true,"Haven't labeled yet!");
-        unlabelfile[_idUnlabelFile].isLabeled = true;
-        fileStorage.getFileList(_idUnlabelFile).IsLabeling = true;
-        token.TransferFromTo(unlabelfile[_idUnlabelFile].renter, unlabelfile[_idUnlabelFile].implementer, unlabelfile[_idUnlabelFile].wage);
-        return unlabelfile[_idUnlabelFile].hashLabeledFile;
+        require(unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].labeler != address(0),"Have labeled !");
+        require(unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].isAccept == false,"This part has already labeled !");
+        unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].labeler = address(0);
+        unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].subHashLabeled = "";
+    }
+    
+    function approveLabeledFile(uint _idUnlabelFile, uint _idPart) public {
+        require(unlabelfile[_idUnlabelFile].renter == msg.sender,"You have no right to approve!");
+        require(unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].labeler != address(0),"Have labeled !");
+        require(keccak256(abi.encodePacked((unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].subHashLabeled))) != keccak256(abi.encodePacked((""))), "This part hasn't labeled yet!");
+        require(unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].isAccept == false,"This part has already labeled !");
+        unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].isAccept = true;
+        bool finishedLabel = true;
+        for(uint i = 0; i < unlabelfile[_idUnlabelFile].arrPartLabel.length ; i++){
+            if(unlabelfile[_idUnlabelFile].arrPartLabel[i].isAccept == false){
+                finishedLabel = false;
+                break;
+            }
+        }
+        if(finishedLabel == true){
+            File memory fileTemp = fileStorage.getFileList(_idUnlabelFile);
+            fileTemp.IsLabeling = true;
+            fileStorage.setFileList(_idUnlabelFile, fileTemp);
+        }
+        token.TransferFromTo(unlabelfile[_idUnlabelFile].renter, unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].labeler, unlabelfile[_idUnlabelFile].arrPartLabel[_idPart].partWage);
     }
 }

@@ -86,7 +86,7 @@ class ShowDetailLabelData extends React.Component {
                       <Text style={{color:'#910000'}}>Cancel</Text>
                     </Button>
                     : <Tooltip style={{display: 'flex'}} title={infor.hunter.nickName} placement="bottom" >
-                        <Avatar shape='circle' style={{marginRight: 5}} size='small' src={window.$linkIPFS + infor.huntedFile.image } onClick={() => this.props.history.push(`/song/${infor.huntedFile._id}`)}/>
+                        <Avatar shape='circle' style={{marginRight: 5}} size='small' src={window.$linkIPFS + infor.huntedFile.image } onClick={() => this.props.history.push(`/data/${infor.huntedFile._id}`)}/>
                         <Button ghost type="danger" icon="edit" onClick={() => this.handleApprove()}>
                           <Text>Approve Hunting</Text>
                         </Button>

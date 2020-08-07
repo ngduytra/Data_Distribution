@@ -41,8 +41,8 @@ class DataTable extends React.Component {
         // sorter: true,
         render: music =>
         <Meta 
-          avatar={<Avatar shape='square' size={50} src={window.$linkIPFS + music.image} alt="Dataset photo" onClick={()=> this.props.history.push(`/song/${music._id}`)}/>} 
-          title={<Button  style={{textAlign: 'left', padding: 0, fontSize: 14, height: 20}}  type="link" onClick={()=> this.props.history.push(`/song/${music._id}`)}>{music.name}</Button>} 
+          avatar={<Avatar shape='square' size={50} src={window.$linkIPFS + music.image} alt="Dataset photo" onClick={()=> this.props.history.push(`/data/${music._id}`)}/>} 
+          title={<Button  style={{textAlign: 'left', padding: 0, fontSize: 14, height: 20}}  type="link" onClick={()=> this.props.history.push(`/data/${music._id}`)}>{music.name}</Button>} 
           description={<Text type="secondary">{music.artist}</Text>} 
         />
       },

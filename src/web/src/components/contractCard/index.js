@@ -28,7 +28,7 @@ class ContractCard extends React.Component {
     //   ] : null
     // }
     >
-      <Button  style={{textAlign: 'center', padding: 0, fontSize: 14, height: 20}}  type="link" onClick={()=> this.props.history.push(`/song/${record.songID._id}`)}>{record.songID.name}</Button>
+      <Button  style={{textAlign: 'center', padding: 0, fontSize: 14, height: 20}}  type="link" onClick={()=> this.props.history.push(`/data/${record.songID._id}`)}>{record.songID.name}</Button>
       {isOwner ? 
       <Meta 
         style={{paddingBottom: 10}} 

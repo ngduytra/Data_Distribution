@@ -115,7 +115,7 @@ class InvestISO extends React.Component {
   };
   
   render() {
-    const {hasSlot, objLabeler} = this.props
+    const {hasSlot, objLabeler, isMarket} = this.props
     return (
       <div>
         {
