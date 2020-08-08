@@ -365,6 +365,7 @@ exports.ModifyUnlabelFile = (tx, senderID) => {
 			returnObj.partAmount = Number(record.partAmount)
 			returnObj.totalWage = Number(record.totalWage)
 			returnObj.renter = record.renter
+			returnObj.isComplete = true
 			returnObj.arrPartLabel = record.arrPartLabel.map(e => {
 				let labelObj = {}
 				labelObj.idPart = Number(e.idPart)
@@ -373,6 +374,9 @@ exports.ModifyUnlabelFile = (tx, senderID) => {
 				labelObj.subHashLabeled = e.subHashLabeled
 				labelObj.partWage = Number(e.partWage)
 				labelObj.isAccept  = e.isAccept
+				if(labelObj.isAccept === false){
+					returnObj.isComplete = false
+				}
 				return labelObj
 			})
 

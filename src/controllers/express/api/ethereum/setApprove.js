@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
         .populate('ownerID', ['socketID'])
         .populate('signerID', ['socketID'])
         .populate('songID', ['image'])
-        console.log(contractInfo)
+        // console.log(contractInfo)
         if(req.token_info._id === contractInfo.whoExecuted ||
                 !(
                     req.token_info._id === contractInfo.ownerID._id.toString() ||

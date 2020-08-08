@@ -28,7 +28,7 @@ module.exports = (req, res) => {
     .then(async(data) => {
         // User.updateOne({ privateKey: config.ownerSecretKey }, { $push: { validateUser: req.body.user.addressEthereum } }).exec()
         // response_express.success(res);
-        console.log(req.token_info)
+        // console.log(req.token_info)
         const user = await User.findById(req.token_info._id)
         if(!user){
             return response_express.exception(res, "User not exist!")

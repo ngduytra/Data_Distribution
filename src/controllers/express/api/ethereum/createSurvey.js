@@ -11,23 +11,19 @@ module.exports = async(req, res) => {
             return response_express.exception(res, "Haven't content in body")
         } else {
         const hash = await getHashIPFS(req.body.content)
-        console.log(hash)
         const survey =await Survey.create({
             ...req.body,
             ownerID:token_info,
             contentHash: hash
         })
-        console.log(survey)
         let privateKey = config.ownerSecretKey;
         let wallet = new ethers.Wallet(privateKey, config.provider);
         let contractWithSigner = new ethers.Contract(config.didaSystemAddress, config.didaSystemABI, wallet)
         const tx = await contractWithSigner.createSurvey(survey._id, survey.contentHash, req.body.endDay,req.body.feePerASurvey,req.body.surveyInDemand)
-        console.log(tx)
         if(!tx){
             return Promise.reject("Fail to execute transaction");
         }
         const receipt = await tx.wait()
-        console.log(receipt)
         if(receipt.status !== 1){
             return response_express.exception(res, "Receipt not exist!");
         }

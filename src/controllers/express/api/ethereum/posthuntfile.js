@@ -5,11 +5,11 @@ const response_express = require(config.library_dir + '/response').response_expr
 const getHashIPFS = require(config.library_dir + '/ipfs').getHashIPFS
 
 module.exports = async (req, res) => {
-    console.log("ddddddddddddddddddd")
-    console.log(req.body)
+    // console.log("ddddddddddddddddddd")
+    // console.log(req.body)
     let dataBuffer = Buffer.from(JSON.stringify(req.body));
     const contentHash = await getHashIPFS(dataBuffer)
-    console.log(contentHash)
+    // console.log(contentHash)
     const user = await User.findById(req.token_info._id)
         .lean()
         .select('privateKey')
@@ -20,8 +20,8 @@ module.exports = async (req, res) => {
         if(!tx){
             return Promise.reject("Fail to execute transaction [find data]");
         }
-        console.log(tx)
-        console.log(tx.hash)
+        // console.log(tx)
+        // console.log(tx.hash)
         return response_express.success(res, tx.hash)
     })
     .catch(err => {

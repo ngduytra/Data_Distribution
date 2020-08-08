@@ -15,7 +15,7 @@ exports.checkFingerprint = (hash) =>{
           },
         })
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           if(!response.data.result)
             {
               return resolve(false)
@@ -36,20 +36,20 @@ exports.checkFingerprint = (hash) =>{
 
 exports.setFingerprint = (hash, songName) =>{
   return new Promise( async (resolve, rejects) => {
-    console.log(hash)
+    // console.log(hash)
     request.get(window.$linkIPFS + hash, async function (err, res, fileBuffer) {
-      console.log(songName)
+      // console.log(songName)
       form.append('audio', fileBuffer, {filename: 'hahahaha.mp3', contentType: 'audio/mp3'});
       form.append('info', songName);
       const formHeaders = form.getHeaders();
-      console.log(hash)
+      // console.log(hash)
       axios.post('http://34.67.236.243:5000/fingerprint', form, {
         headers: {
           ...formHeaders,
         },
       })
       .then(response => {
-        console.log(response)
+        // console.log(response)
         if(response.data.message === 'completed'){
           return resolve(true)
         }

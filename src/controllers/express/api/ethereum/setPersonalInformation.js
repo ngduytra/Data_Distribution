@@ -5,7 +5,7 @@ const response_express = require(config.library_dir + '/response').response_expr
 // const lib_common = require(config.library_dir+'/common');
 
 module.exports = async (req, res) => {
-    console.log(req)
+    // console.log(req)
     const user = await User.findById(req.token_info._id)
         .lean()
         .select('privateKey')

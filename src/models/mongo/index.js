@@ -6,7 +6,7 @@ const connect = () => {
         var uri = "mongodb://" + config.mongo.host + ":" + config.mongo.port + "/" + config.mongo.database; // local
         if(config.mongo.user){
             uri = "mongodb+srv://" + config.mongo.user + ":" + config.mongo.password + "@" + config.mongo.host; // online
-            console.log(uri)
+            // console.log(uri)
         }
         mongoose.connect(uri, {
             useNewUrlParser: true,

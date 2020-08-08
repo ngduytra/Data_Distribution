@@ -17,11 +17,11 @@ module.exports = (req, res) => {
             if(!tx){
                 return response_express.exception(res, "Transaction failed, please try again!")
             }
-            console.log(tx)
+            // console.log(tx)
             lib_common.ModifyUnlabelFile(tx, req.token_info._id)
             .then(result => {
-                console.log("ddddddddddddddddddddddddddd")
-                console.log(result)
+                // console.log("ddddddddddddddddddddddddddd")
+                // console.log(result)
                 return response_express.success(res, result)  
             })
         })

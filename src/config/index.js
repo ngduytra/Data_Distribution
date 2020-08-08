@@ -33,7 +33,7 @@ var main_config = {
             models_dir: root + '/models',
             controllers_dir: root + '/controllers',
             library_dir: root + '/library',
-            web_dir: root + '/web',
+            web_dir: root + '/../web',
 }
 
 module.exports = Object.assign(main_config, require('./env/'+env) || {});

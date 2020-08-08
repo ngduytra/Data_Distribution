@@ -7,7 +7,6 @@ const getHashIPFS = require(config.library_dir + '/ipfs').getHashIPFS
 // const lib_common = require(config.library_dir+'/common');
 
 module.exports = async (req, res) => {
-    console.log(req)
     const user = await User.findById(req.token_info._id)
         .lean()
         .select('privateKey')
@@ -15,8 +14,6 @@ module.exports = async (req, res) => {
     const songData = await Music.findOne({idSolidity: req.body.idFile})
         .lean()
         .select('hash')
-    console.log('ddjdjdjdjjdjdjdjd')
-    console.log(songData)
     // sau do dung fetch de get cai file json do
     let a = []
     let subHashLabel = []
@@ -24,14 +21,8 @@ module.exports = async (req, res) => {
     await fetch(`https://ipfs.jumu.tk/${songData.hash}`)
         .then(response => response.json())
         .then((jsonData) => {
-            console.log("jsondata lengthhhhhh")
-            console.log(jsonData)
             let recordPerPart = Math.floor(jsonData.length/req.body.partAmount);
             let remaindingRecord = jsonData.length % req.body.partAmount;
-            console.log("jsondata lengthhhhhh")
-            console.log(recordPerPart)
-            console.log("jsondata lengthhhhhh")
-            console.log(remaindingRecord)
             for( var i = 0; i< req.body.partAmount; i++){
                 var startIndex = recordPerPart * i
                 var citrus = []
@@ -40,8 +31,6 @@ module.exports = async (req, res) => {
                 } else{
                     citrus = jsonData.slice(startIndex, startIndex + recordPerPart);
                 }
-                console.log('Heeellelellelelele')
-                console.log(citrus)
                 let buf = Buffer.from(JSON.stringify(citrus));
                 // const hash = await getHashIPFS(buf)
                 promises.push(getHashIPFS(buf))
@@ -49,8 +38,8 @@ module.exports = async (req, res) => {
             }
         })
     Promise.all(promises).then(async(subHashLabel) => {
-        console.log("dfadsfadsfssssssssssssssssssssssss")
-        console.log(subHashLabel)
+        // console.log("dfadsfadsfssssssssssssssssssssssss")
+        // console.log(subHashLabel)
         // var sas = subHashLabel.toLocaleString()
         // var res = sas.replace("\'", "\"")
         // console.log(res)

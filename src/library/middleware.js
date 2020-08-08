@@ -10,12 +10,12 @@ exports.expressMiddleware = (req, res, next) => {
             if(err)
                 return response.response_express.exception(res, "Failed to authenticate token.")
             req.token_info = decoded;
-            console.log(decoded)
+            // console.log(decoded)
             const user = await User.findById(req.token_info._id)
                 .lean()
                 .select('isValid');
-            console.log("middlewareeeeeeeeeeeeee")
-            console.log(user)
+            // console.log("middlewareeeeeeeeeeeeee")
+            // console.log(user)
             if(user == null || !user.isValid){
                 return response.response_express.exception(res, "You haven't validated yet")
             }

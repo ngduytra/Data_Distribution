@@ -12,14 +12,14 @@ module.exports = async (req, res) => {
             .select('privateKey')
         let wallet = new ethers.Wallet(user.privateKey, config.provider);
         let contractWithSigner = new ethers.Contract(config.didaSystemAddress, config.didaSystemABI, wallet)
-        console.log(req.body)
+        // console.log(req.body)
         let musicData = await Music.findById(req.body.idFileHuntMongo)
         .lean()
         .select('idSolidity userUpload')
-        console.log(musicData)
+        // console.log(musicData)
         contractWithSigner.hunt(req.body.idHuntFile, musicData.idSolidity)
         .then(async tx => {
-            console.log(tx)
+            // console.log(tx)
             if(!tx){
                 return Promise.reject("Fail to execute transaction [hunt]");
             }

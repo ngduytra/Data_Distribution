@@ -10,10 +10,10 @@ module.exports = async (req, res) => {
         .select('privateKey')
     let wallet = new ethers.Wallet(user.privateKey, config.provider);
     let contractWithSigner = new ethers.Contract(config.didaSystemAddress, config.didaSystemABI, wallet)
-    console.log(req.body)
+    // console.log(req.body)
     contractWithSigner.Labeling(req.body.idUnlabelFile, req.body.hashFile)
     .then(async tx => {
-        console.log(tx)
+        // console.log(tx)
         if(!tx){
             return Promise.reject("Fail to execute transaction [hunt]");
         }

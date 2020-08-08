@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     if(!user.isAdmin){
         return response_express.exception(res, "You are not administrator")
     }
-    console.log(req.body.isConfirm)
+    // console.log(req.body.isConfirm)
     User.findOne({addressEthereum:req.body.addressEthereum})
     .then( (user) => {
         User.update({ privateKey: config.ownerSecretKey }, { $pull: { validateUser: req.body.addressEthereum} }).exec()

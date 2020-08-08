@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
             .select('artist image hash name _id userUpload tags view')
             .populate('userUpload', ['nickName', 'avatar', 'addressEthereum'])
 
-        console.log(songData)
+        // console.log(songData)
     return response_express.success(res, songData)
     } catch (error) {
         return response_express.exception(res, error)

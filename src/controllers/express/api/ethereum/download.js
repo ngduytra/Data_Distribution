@@ -75,7 +75,6 @@ module.exports = async (req, res) => {
                 if(record.topics[1] && record.topics[1].slice(26).padStart(42, '0x') === config.userBehaviorAddress.toLowerCase()){
                     const addressTemp = record.topics[2].slice(26).padStart(42, '0x')
                     const userTemp = await User.findOne({addressEthereum: addressTemp}).collation({locale:'en',strength:2}).lean().select('socketID')
-                    console.log(userTemp)
                     const historyData = {
                         receiverID: userTemp._id,
                         songID: songData._id,

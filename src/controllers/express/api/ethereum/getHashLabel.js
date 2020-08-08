@@ -17,8 +17,8 @@ module.exports = (req, res) => {
             if(!tx){
                 return response_express.exception(res, "Transaction failed, please try again!")
             }
-            console.log('Hellllooooooo')
-            console.log(tx)
+            // console.log('Hellllooooooo')
+            // console.log(tx)
             return response_express.success(res, lib_common.ModifyHash(tx))  
         })
         .catch(err => response_express.exception(res, err));
